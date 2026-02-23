@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Identity SDK — Test</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0b0d12;
+            --card: #10131b;
+            --border: #232b42;
+            --accent: #4f72ff;
+            --green: #22c55e;
+            --red: #ef4444;
+            --yellow: #f59e0b;
+            --cyan: #06b6d4;
+            --text: #e2e8f0;
+            --muted: #56647a;
+            --mono: 'JetBrains Mono', monospace;
+            --sans: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 20px;
+            gap: 20px;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -.02em;
+        }
+
+        .subtitle {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* ── SDK Status Badge ── */
+        .sdk-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 22px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .sdk-status .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--muted);
+            flex-shrink: 0;
+            transition: all .4s;
+        }
+
+        .sdk-status .dot.yes {
+            background: var(--green);
+            box-shadow: 0 0 10px var(--green);
+        }
+
+        .sdk-status .dot.no {
+            background: var(--red);
+            box-shadow: 0 0 10px var(--red);
+        }
+
+        .sdk-status .dot.busy {
+            background: var(--yellow);
+            animation: pulse 1s infinite;
+        }
+
+        .sdk-status .label {
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .sdk-status .value {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .3
+            }
+        }
+
+        /* ── Identity Card ── */
+        .identity-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+        }
+
+        .identity-card .card-title {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--muted);
+            background: rgba(255, 255, 255, .02);
+        }
+
+        .identity-row {
+            display: flex;
+            align-items: flex-start;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+            gap: 16px;
+        }
+
+        .identity-row:last-child {
+            border-bottom: none;
+        }
+
+        .identity-row .field-name {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            min-width: 100px;
+            padding-top: 2px;
+        }
+
+        .identity-row .field-val {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            word-break: break-all;
+            flex: 1;
+            color: var(--muted);
+        }
+
+        .identity-row .field-val.loaded {
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .identity-row .field-val.site {
+            color: var(--cyan);
+        }
+
+        /* ── Buttons ── */
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .btn {
+            flex: 1;
+            border: none;
+            border-radius: 10px;
+            padding: 11px 16px;
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4f72ff, #7c3aed);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: .85;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn:disabled {
+            opacity: .3;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ── Log ── */
+        .log-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+        }
+
+        .log-card .card-title {
+            padding: 12px 18px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .log-clear {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            border-radius: 6px;
+            padding: 3px 10px;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+
+        .log-clear:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .log-inner {
+            height: 240px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 10px 14px;
+        }
+
+        .log-entry {
+            font-family: var(--mono);
+            font-size: 0.71rem;
+            padding: 6px 10px;
+            border-radius: 7px;
+            border-left: 3px solid transparent;
+            background: rgba(255, 255, 255, .02);
+            line-height: 1.5;
+        }
+
+        .log-entry.success {
+            border-color: var(--green);
+        }
+
+        .log-entry.error {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .log-entry.info {
+            border-color: var(--accent);
+        }
+
+        .log-entry.event {
+            border-color: var(--cyan);
+        }
+
+        .log-entry .ts {
+            color: var(--muted);
+            margin-right: 8px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Title -->
+    <div style="text-align:center;">
+        <h1>🔍 Identity SDK — Test Console</h1>
+        <div class="subtitle">Port 8001 · ngrok · Docker</div>
+    </div>
+
+    <!-- SDK Status -->
+    <div class="sdk-status" id="sdkStatusCard">
+        <div class="dot busy" id="statusDot"></div>
+        <div>
+            <div class="label">SDK Initialized</div>
+            <div class="value" id="statusValue">Initializing…</div>
+        </div>
+    </div>
+
+    <!-- Identity Data -->
+    <div class="identity-card">
+        <div class="card-title">Identity Data</div>
+
+        <div class="identity-row">
+            <span class="field-name">site_code</span>
+            <span class="field-val site" id="val-site">—</span>
+        </div>
+        <div class="identity-row">
+            <span class="field-name">anon_id</span>
+            <span class="field-val" id="val-anon">— not resolved yet —</span>
+        </div>
+        <div class="identity-row">
+            <span class="field-name">visitor_id</span>
+            <span class="field-val" id="val-visitor">— not resolved yet —</span>
+        </div>
+        <div class="identity-row">
+            <span class="field-name">matched_via</span>
+            <span class="field-val" id="val-match">—</span>
+        </div>
+        <div class="identity-row">
+            <span class="field-name">is_new</span>
+            <span class="field-val" id="val-isnew">—</span>
+        </div>
+        <div class="identity-row">
+            <span class="field-name">confidence</span>
+            <span class="field-val" id="val-conf">—</span>
+        </div>
+        <div class="identity-row">
+            <span class="field-name">bot_score</span>
+            <span class="field-val" id="val-bot">—</span>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-row">
+        <button class="btn btn-primary" id="resolveBtn" onclick="doResolve()" disabled>🔑 Resolve Identity</button>
+        <button class="btn btn-secondary" id="anonBtn" onclick="doGetAnon()" disabled>🪪 Get Anon ID</button>
+        <button class="btn btn-secondary" id="pvBtn" onclick="doPageView()" disabled>👁 Track Page View</button>
+    </div>
+
+    <!-- Log -->
+    <div class="log-card">
+        <div class="card-title">
+            Live Log
+            <button class="log-clear" onclick="clearLog()">Clear</button>
+        </div>
+        <div class="log-inner" id="logInner"></div>
+    </div>
+
+    <script src="./identity.min.js"></script>
+    <script>
+
+        Identity.init('test', 'uVEkYQkT1JsqWqh5TEgrY4URTCHmkXoKPXx_4FVUMJc', {
+            apiUrl: 'https://choiceless-lakeesha-ichthyophagous.ngrok-free.dev',
+            debug: true
+        });
+    </script>
+    let ready = false;
+
+    function setStatus(state, text) {
+    document.getElementById('statusDot').className = 'dot ' + state;
+    document.getElementById('statusValue').textContent = text;
+    }
+
+    function setField(id, value, highlight) {
+    const el = document.getElementById('val-' + id);
+    if (!el) return;
+    if (value == null || value === '' || value === undefined) {
+    el.textContent = 'null';
+    el.className = 'field-val';
+    } else {
+    el.textContent = value;
+    el.className = 'field-val' + (highlight ? ' loaded' : '');
+    }
+    }
+
+    function log(type, msg) {
+    const wrap = document.getElementById('logInner');
+    const ts = new Date().toLocaleTimeString('en-US', { hour12: false });
+    const div = document.createElement('div');
+    div.className = 'log-entry ' + type;
+    div.innerHTML = `<span class="ts">${ts}</span>${msg}`;
+    wrap.appendChild(div);
+    div.scrollIntoView({ block: 'nearest' });
+    }
+
+    function clearLog() { document.getElementById('logInner').innerHTML = ''; }
+
+    function fillIdentity(r) {
+    setField('anon', r.anon_id ?? r.anonymous_id ?? null, true);
+    setField('visitor', r.visitor_id ?? null, true);
+    setField('match', r.matched_via ?? null, false);
+    setField('isnew', r.is_new != null ? (r.is_new ? '✅ Yes (new)' : '❌ No (returning)') : null, false);
+    setField('conf', r.confidence != null ? Math.round(r.confidence * 100) + '%' : null, false);
+    setField('bot', r.bot_score != null ? Math.round(r.bot_score) + ' / 100' : null, false);
+    }
+
+    async function initSDK() {
+    setStatus('busy', 'Initializing…');
+    log('info', `Identity.init() calling… site=${SITE} apiUrl=${API_URL}`);
+    try {
+    if (typeof Identity === 'undefined') throw new Error('identity.min.js not loaded — check file path');
+
+    Identity.init(SITE, KEY, { apiUrl: API_URL, debug: true });
+
+    ready = true;
+    setStatus('yes', '✅ Yes — SDK Ready');
+    setField('site', SITE, false);
+    log('success', `SDK initialized ✅ site=${SITE} | api=${API_URL}`);
+
+    ['resolveBtn', 'anonBtn', 'pvBtn'].forEach(id => {
+    document.getElementById(id).disabled = false;
+    });
+
+    setTimeout(doResolve, 600);
+
+    } catch (e) {
+    setStatus('no', '❌ Init Failed');
+    log('error', `Init failed: ${e.name}: ${e.message}`);
+    console.error('[SDK Init Error]', e);
+    }
+    }
+
+    async function doResolve() {
+    if (!ready) return;
+    log('info', `🔑 Resolving identity… (POST ${API_URL}/api/resolve)`);
+    try {
+    let r = await Identity.resolve('sync');
+
+    fillIdentity(r);
+    log('success', `✅ Resolved — anon_id: ${r.anon_id ?? r.anonymous_id ?? 'null'} | visitor_id: ${r.visitor_id ??
+    'null'}`);
+    } catch (e) {
+    log('error', `❌ Resolve failed [${e.name}]: ${e.message}`);
+    console.error('[doResolve error]', e);
+    }
+    }
+
+    async function doGetAnon() {
+    if (!ready) return;
+    const id = Identity.getAnonymousId();
+    setField('anon', id, true);
+    log('info', `🪪 getAnonymousId() → ${id ?? 'null'}`);
+    }
+
+    async function doPageView() {
+    if (!ready) return;
+    try {
+    await Identity.trackPageView({ page_url: window.location.href });
+    log('success', '✅ page_view tracked');
+    } catch (e) {
+    log('error', '❌ trackPageView failed: ' + e.message);
+    }
+    }
+
+    window.addEventListener('DOMContentLoaded', initSDK);
+    </script>
+
+</body>
+
+</html>
