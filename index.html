@@ -374,6 +374,7 @@
         <button class="btn btn-primary" id="resolveBtn" onclick="doResolve()" disabled>🔑 Resolve Identity</button>
         <button class="btn btn-secondary" id="anonBtn" onclick="doGetAnon()" disabled>🪪 Get Anon ID</button>
         <button class="btn btn-secondary" id="pvBtn" onclick="doPageView()" disabled>👁 Track Page View</button>
+        <a href="news.html" class="btn btn-secondary" style="text-decoration:none; text-align:center;">📰 News Page</a>
     </div>
 
     <!-- Log -->
@@ -387,111 +388,109 @@
 
     <script src="./identity.min.js"></script>
     <script>
+        const SITE = 'testsite';
+        const KEY = 'QW5dcysguZI2BhVpm0_zSvrNNMk4jQ5MAGjBqn6f5E8';
+        const API_URL = 'https://choiceless-lakeesha-ichthyophagous.ngrok-free.dev';
 
-        Identity.init('testsite', 'QW5dcysguZI2BhVpm0_zSvrNNMk4jQ5MAGjBqn6f5E8', {
-            apiUrl: 'https://choiceless-lakeesha-ichthyophagous.ngrok-free.dev',
-            debug: true
-        });
-    </script>
-    let ready = false;
+        let ready = false;
 
-    function setStatus(state, text) {
-    document.getElementById('statusDot').className = 'dot ' + state;
-    document.getElementById('statusValue').textContent = text;
-    }
+        function setStatus(state, text) {
+            document.getElementById('statusDot').className = 'dot ' + state;
+            document.getElementById('statusValue').textContent = text;
+        }
 
-    function setField(id, value, highlight) {
-    const el = document.getElementById('val-' + id);
-    if (!el) return;
-    if (value == null || value === '' || value === undefined) {
-    el.textContent = 'null';
-    el.className = 'field-val';
-    } else {
-    el.textContent = value;
-    el.className = 'field-val' + (highlight ? ' loaded' : '');
-    }
-    }
+        function setField(id, value, highlight) {
+            const el = document.getElementById('val-' + id);
+            if (!el) return;
+            if (value == null || value === '' || value === undefined) {
+                el.textContent = 'null';
+                el.className = 'field-val';
+            } else {
+                el.textContent = value;
+                el.className = 'field-val' + (highlight ? ' loaded' : '');
+            }
+        }
 
-    function log(type, msg) {
-    const wrap = document.getElementById('logInner');
-    const ts = new Date().toLocaleTimeString('en-US', { hour12: false });
-    const div = document.createElement('div');
-    div.className = 'log-entry ' + type;
-    div.innerHTML = `<span class="ts">${ts}</span>${msg}`;
-    wrap.appendChild(div);
-    div.scrollIntoView({ block: 'nearest' });
-    }
+        function log(type, msg) {
+            const wrap = document.getElementById('logInner');
+            const ts = new Date().toLocaleTimeString('en-US', { hour12: false });
+            const div = document.createElement('div');
+            div.className = 'log-entry ' + type;
+            div.innerHTML = `<span class="ts">${ts}</span>${msg}`;
+            wrap.appendChild(div);
+            div.scrollIntoView({ block: 'nearest' });
+        }
 
-    function clearLog() { document.getElementById('logInner').innerHTML = ''; }
+        function clearLog() { document.getElementById('logInner').innerHTML = ''; }
 
-    function fillIdentity(r) {
-    setField('anon', r.anon_id ?? r.anonymous_id ?? null, true);
-    setField('visitor', r.visitor_id ?? null, true);
-    setField('match', r.matched_via ?? null, false);
-    setField('isnew', r.is_new != null ? (r.is_new ? '✅ Yes (new)' : '❌ No (returning)') : null, false);
-    setField('conf', r.confidence != null ? Math.round(r.confidence * 100) + '%' : null, false);
-    setField('bot', r.bot_score != null ? Math.round(r.bot_score) + ' / 100' : null, false);
-    }
+        function fillIdentity(r) {
+            setField('anon', r.anon_id ?? r.anonymous_id ?? null, true);
+            setField('visitor', r.visitor_id ?? null, true);
+            setField('match', r.matched_via ?? null, false);
+            setField('isnew', r.is_new != null ? (r.is_new ? '✅ Yes (new)' : '❌ No (returning)') : null, false);
+            setField('conf', r.confidence != null ? Math.round(r.confidence * 100) + '%' : null, false);
+            setField('bot', r.bot_score != null ? Math.round(r.bot_score) + ' / 100' : null, false);
+        }
 
-    async function initSDK() {
-    setStatus('busy', 'Initializing…');
-    log('info', `Identity.init() calling… site=${SITE} apiUrl=${API_URL}`);
-    try {
-    if (typeof Identity === 'undefined') throw new Error('identity.min.js not loaded — check file path');
+        async function initSDK() {
+            setStatus('busy', 'Initializing…');
+            log('info', `Identity.init() calling… site=${SITE} apiUrl=${API_URL}`);
+            try {
+                if (typeof Identity === 'undefined') throw new Error('identity.min.js not loaded — check file path');
 
-    Identity.init(SITE, KEY, { apiUrl: API_URL, debug: true });
+                Identity.init(SITE, KEY, { apiUrl: API_URL, debug: true });
 
-    ready = true;
-    setStatus('yes', '✅ Yes — SDK Ready');
-    setField('site', SITE, false);
-    log('success', `SDK initialized ✅ site=${SITE} | api=${API_URL}`);
+                ready = true;
+                setStatus('yes', '✅ Yes — SDK Ready');
+                setField('site', SITE, false);
+                log('success', `SDK initialized ✅ site=${SITE} | api=${API_URL}`);
 
-    ['resolveBtn', 'anonBtn', 'pvBtn'].forEach(id => {
-    document.getElementById(id).disabled = false;
-    });
+                ['resolveBtn', 'anonBtn', 'pvBtn'].forEach(id => {
+                    document.getElementById(id).disabled = false;
+                });
 
-    setTimeout(doResolve, 600);
+                setTimeout(doResolve, 600);
 
-    } catch (e) {
-    setStatus('no', '❌ Init Failed');
-    log('error', `Init failed: ${e.name}: ${e.message}`);
-    console.error('[SDK Init Error]', e);
-    }
-    }
+            } catch (e) {
+                setStatus('no', '❌ Init Failed');
+                log('error', `Init failed: ${e.name}: ${e.message}`);
+                console.error('[SDK Init Error]', e);
+            }
+        }
 
-    async function doResolve() {
-    if (!ready) return;
-    log('info', `🔑 Resolving identity… (POST ${API_URL}/api/resolve)`);
-    try {
-    let r = await Identity.resolve('sync');
+        async function doResolve() {
+            if (!ready) return;
+            log('info', `🔑 Resolving identity… (POST ${API_URL}/api/resolve)`);
+            try {
+                let r = await Identity.resolve('sync');
 
-    fillIdentity(r);
-    log('success', `✅ Resolved — anon_id: ${r.anon_id ?? r.anonymous_id ?? 'null'} | visitor_id: ${r.visitor_id ??
-    'null'}`);
-    } catch (e) {
-    log('error', `❌ Resolve failed [${e.name}]: ${e.message}`);
-    console.error('[doResolve error]', e);
-    }
-    }
+                fillIdentity(r);
+                log('success', `✅ Resolved — anon_id: ${r.anon_id ?? r.anonymous_id ?? 'null'} | visitor_id: ${r.visitor_id ??
+                    'null'}`);
+            } catch (e) {
+                log('error', `❌ Resolve failed [${e.name}]: ${e.message}`);
+                console.error('[doResolve error]', e);
+            }
+        }
 
-    async function doGetAnon() {
-    if (!ready) return;
-    const id = Identity.getAnonymousId();
-    setField('anon', id, true);
-    log('info', `🪪 getAnonymousId() → ${id ?? 'null'}`);
-    }
+        async function doGetAnon() {
+            if (!ready) return;
+            const id = Identity.getAnonymousId();
+            setField('anon', id, true);
+            log('info', `🪪 getAnonymousId() → ${id ?? 'null'}`);
+        }
 
-    async function doPageView() {
-    if (!ready) return;
-    try {
-    await Identity.trackPageView({ page_url: window.location.href });
-    log('success', '✅ page_view tracked');
-    } catch (e) {
-    log('error', '❌ trackPageView failed: ' + e.message);
-    }
-    }
+        async function doPageView() {
+            if (!ready) return;
+            try {
+                await Identity.trackPageView({ page_url: window.location.href });
+                log('success', '✅ page_view tracked');
+            } catch (e) {
+                log('error', '❌ trackPageView failed: ' + e.message);
+            }
+        }
 
-    window.addEventListener('DOMContentLoaded', initSDK);
+        window.addEventListener('DOMContentLoaded', initSDK);
     </script>
 
 </body>
