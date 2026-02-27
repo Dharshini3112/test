@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutorial</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #0b0d12;
+            --card: #10131b;
+            --border: #232b42;
+            --text: #e2e8f0;
+            --muted: #8b9bb4;
+            --accent: #4f72ff;
+            --green: #22c55e;
+            --orange: #f59e0b;
+            --red: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+
+        /* Layout */
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: var(--card);
+            border-right: 1px solid var(--border);
+            padding: 30px 20px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-brand .icon {
+            font-size: 1.6rem;
+        }
+
+        .sidebar-brand .label {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .sidebar-brand .sub {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .toc-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .toc-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .toc-list a {
+            display: block;
+            padding: 7px 12px;
+            border-radius: 8px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: all 0.15s;
+        }
+
+        .toc-list a:hover,
+        .toc-list a.active {
+            background: rgba(79, 114, 255, 0.12);
+            color: var(--accent);
+        }
+
+        .toc-list a.sub-item {
+            padding-left: 24px;
+            font-size: 0.82rem;
+        }
+
+        /* Main content */
+        .main {
+            flex: 1;
+            padding: 50px 60px;
+            max-width: 900px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            margin-bottom: 40px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--text);
+        }
+
+        .tutorial-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .tutorial-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .tutorial-meta {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tutorial-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 40px 0;
+        }
+
+        /* Content sections */
+        .section {
+            margin-bottom: 50px;
+            scroll-margin-top: 30px;
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h2 .num {
+            width: 30px;
+            height: 30px;
+            background: rgba(79, 114, 255, 0.15);
+            border: 1px solid rgba(79, 114, 255, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #d1d9e6;
+            margin: 20px 0 10px 0;
+        }
+
+        .section p {
+            color: var(--muted);
+            margin-bottom: 14px;
+            line-height: 1.75;
+        }
+
+        .section ul,
+        .section ol {
+            color: var(--muted);
+            padding-left: 22px;
+            margin-bottom: 14px;
+            line-height: 2;
+        }
+
+        .section ul li::marker {
+            color: var(--accent);
+        }
+
+        /* Code block */
+        .code-block {
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: #161b22;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-lang {
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-family: 'Fira Code', monospace;
+            font-weight: 500;
+        }
+
+        .copy-btn {
+            font-size: 0.75rem;
+            color: var(--muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 3px 8px;
+            border-radius: 5px;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text);
+        }
+
+        .code-block pre {
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            color: #e6edf3;
+        }
+
+        /* Syntax highlight colors */
+        .kw {
+            color: #ff7b72;
+        }
+
+        /* keywords */
+        .fn {
+            color: #d2a8ff;
+        }
+
+        /* functions */
+        .str {
+            color: #a5d6ff;
+        }
+
+        /* strings */
+        .num {
+            color: #f2cc60;
+        }
+
+        /* numbers */
+        .cm {
+            color: #6e7681;
+            font-style: italic;
+        }
+
+        /* comments */
+        .cl {
+            color: #ffa657;
+        }
+
+        /* class names */
+        .var {
+            color: #e6edf3;
+        }
+
+        /* variables */
+
+        /* Info box */
+        .info-box {
+            background: rgba(79, 114, 255, 0.08);
+            border: 1px solid rgba(79, 114, 255, 0.25);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+            color: #a5b4fc;
+        }
+
+        .info-box strong {
+            color: var(--accent);
+        }
+
+        .tip-box {
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+            color: #86efac;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.1s;
+            z-index: 100;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                padding: 30px 20px;
+            }
+
+            .tutorial-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeIn 0.4s ease-out both;
+        }
+
+        .section:nth-child(2) {
+            animation-delay: 0.05s;
+        }
+
+        .section:nth-child(3) {
+            animation-delay: 0.1s;
+        }
+
+        .section:nth-child(4) {
+            animation-delay: 0.15s;
+        }
+
+        .section:nth-child(5) {
+            animation-delay: 0.2s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="layout">
+        <!-- Sidebar TOC (populated by JS) -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="icon" id="sidebarIcon">📘</span>
+                <div>
+                    <div class="label" id="sidebarLabel">Tutorial</div>
+                    <div class="sub">Learn by doing</div>
+                </div>
+            </div>
+            <div class="toc-title">Table of Contents</div>
+            <ul class="toc-list" id="tocList"></ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main" id="mainContent">
+            <a href="news.html" class="back-link">
+                ← Back to Tutorials
+            </a>
+            <div id="tutorialContent"></div>
+        </main>
+    </div>
+
+    <script src="./identity.min.js"></script>
+    <script>
+        // ════════════════════════════════════════════════════════════════════════
+        // TUTORIAL DATA
+        // ════════════════════════════════════════════════════════════════════════
+        const TUTORIALS = {
+
+            // ── PYTHON ───────────────────────────────────────────────────────────
+            python: {
+                icon: '🐍',
+                badge: { text: 'Python', color: '#3b82f6', bg: 'rgba(59,130,246,0.12)' },
+                title: 'Python for Beginners to Advanced',
+                meta: ['⏱ ~2 hours', '🎯 Beginner → Advanced', '💻 Hands-on examples'],
+                sections: [
+                    {
+                        id: 'intro', title: 'Introduction to Python',
+                        content: `
+                        <p>Python is a high-level, interpreted, and general-purpose programming language. It was created by <strong>Guido van Rossum</strong> and first released in 1991. Python emphasizes code readability and simplicity.</p>
+                        <div class="tip-box">💡 <strong>Why Python?</strong> Python is the #1 language for Data Science, AI/ML, web development, and automation.</div>
+                        <h3>Installing Python</h3>
+                        <ol>
+                            <li>Download from <strong>python.org</strong></li>
+                            <li>Run the installer — check <em>"Add Python to PATH"</em></li>
+                            <li>Verify: open terminal and type <code>python --version</code></li>
+                        </ol>
+                    `
+                    },
+                    {
+                        id: 'basics', title: 'Variables & Data Types',
+                        content: `
+                        <p>Variables store data. Python is dynamically typed — you don't declare types explicitly.</p>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="cm"># Variables</span>
+<span class="var">name</span> = <span class="str">"Alice"</span>        <span class="cm"># str</span>
+<span class="var">age</span>  = <span class="num">25</span>            <span class="cm"># int</span>
+<span class="var">gpa</span>  = <span class="num">3.8</span>           <span class="cm"># float</span>
+<span class="var">is_student</span> = <span class="kw">True</span>   <span class="cm"># bool</span>
+
+<span class="cm"># Print</span>
+<span class="fn">print</span>(<span class="fn">f</span><span class="str">"Name: {name}, Age: {age}"</span>)
+
+<span class="cm"># Type check</span>
+<span class="fn">print</span>(<span class="fn">type</span>(gpa))   <span class="cm"># &lt;class 'float'&gt;</span></pre>
+                        </div>
+                        <h3>Collections</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="cm"># List — ordered, mutable</span>
+<span class="var">fruits</span> = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"cherry"</span>]
+<span class="var">fruits</span>.<span class="fn">append</span>(<span class="str">"mango"</span>)
+
+<span class="cm"># Tuple — ordered, immutable</span>
+<span class="var">coords</span> = (<span class="num">10.5</span>, <span class="num">20.3</span>)
+
+<span class="cm"># Dictionary — key-value pairs</span>
+<span class="var">student</span> = {<span class="str">"name"</span>: <span class="str">"Bob"</span>, <span class="str">"age"</span>: <span class="num">20</span>, <span class="str">"gpa"</span>: <span class="num">3.5</span>}
+<span class="fn">print</span>(student[<span class="str">"name"</span>])  <span class="cm"># Bob</span>
+
+<span class="cm"># Set — unique values</span>
+<span class="var">nums</span> = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">2</span>, <span class="num">1</span>}  <span class="cm"># {1, 2, 3}</span></pre>
+                        </div>
+                    `
+                    },
+                    {
+                        id: 'control', title: 'Control Flow',
+                        content: `
+                        <p>Python uses indentation (spaces) instead of curly braces to define code blocks.</p>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="cm"># if / elif / else</span>
+<span class="var">score</span> = <span class="num">85</span>
+<span class="kw">if</span> score >= <span class="num">90</span>:
+    <span class="fn">print</span>(<span class="str">"Grade: A"</span>)
+<span class="kw">elif</span> score >= <span class="num">75</span>:
+    <span class="fn">print</span>(<span class="str">"Grade: B"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Grade: C"</span>)
+
+<span class="cm"># for loop</span>
+<span class="kw">for</span> fruit <span class="kw">in</span> [<span class="str">"apple"</span>, <span class="str">"banana"</span>]:
+    <span class="fn">print</span>(fruit)
+
+<span class="cm"># while loop</span>
+<span class="var">i</span> = <span class="num">0</span>
+<span class="kw">while</span> i < <span class="num">5</span>:
+    <span class="fn">print</span>(i)
+    i += <span class="num">1</span>
+
+<span class="cm"># List comprehension (Pythonic!)</span>
+<span class="var">squares</span> = [x**<span class="num">2</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>)]</pre>
+                        </div>
+                    `
+                    },
+                    {
+                        id: 'functions', title: 'Functions & OOP',
+                        content: `
+                        <h3>Functions</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="kw">def</span> <span class="fn">greet</span>(name, greeting=<span class="str">"Hello"</span>):
+    <span class="kw">return</span> <span class="fn">f</span><span class="str">"{greeting}, {name}!"</span>
+
+<span class="fn">print</span>(<span class="fn">greet</span>(<span class="str">"Alice"</span>))        <span class="cm"># Hello, Alice!</span>
+<span class="fn">print</span>(<span class="fn">greet</span>(<span class="str">"Bob"</span>, <span class="str">"Hi"</span>))   <span class="cm"># Hi, Bob!</span>
+
+<span class="cm"># Lambda (anonymous) function</span>
+<span class="var">double</span> = <span class="kw">lambda</span> x: x * <span class="num">2</span>
+<span class="fn">print</span>(<span class="fn">double</span>(<span class="num">5</span>))  <span class="cm"># 10</span></pre>
+                        </div>
+                        <h3>Classes (OOP)</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="kw">class</span> <span class="cl">Animal</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="kw">self</span>, name, sound):
+        <span class="kw">self</span>.name  = name
+        <span class="kw">self</span>.sound = sound
+
+    <span class="kw">def</span> <span class="fn">speak</span>(<span class="kw">self</span>):
+        <span class="kw">return</span> <span class="fn">f</span><span class="str">"{self.name} says {self.sound}!"</span>
+
+<span class="kw">class</span> <span class="cl">Dog</span>(<span class="cl">Animal</span>):   <span class="cm"># Inheritance</span>
+    <span class="kw">def</span> <span class="fn">fetch</span>(<span class="kw">self</span>):
+        <span class="kw">return</span> <span class="str">"Fetching the ball!"</span>
+
+<span class="var">d</span> = <span class="cl">Dog</span>(<span class="str">"Rex"</span>, <span class="str">"Woof"</span>)
+<span class="fn">print</span>(d.<span class="fn">speak</span>())   <span class="cm"># Rex says Woof!</span>
+<span class="fn">print</span>(d.<span class="fn">fetch</span>())   <span class="cm"># Fetching the ball!</span></pre>
+                        </div>
+                    `
+                    },
+                    {
+                        id: 'libraries', title: 'Popular Libraries',
+                        content: `
+                        <p>Python's power comes from its vast ecosystem of libraries.</p>
+                        <ul>
+                            <li><strong>NumPy</strong> — Fast numerical computations &amp; arrays</li>
+                            <li><strong>Pandas</strong> — Data manipulation and analysis</li>
+                            <li><strong>Matplotlib / Seaborn</strong> — Data visualization</li>
+                            <li><strong>Requests</strong> — HTTP requests made simple</li>
+                            <li><strong>Flask / FastAPI</strong> — Web frameworks</li>
+                            <li><strong>scikit-learn</strong> — Machine learning</li>
+                        </ul>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="var">df</span> = pd.<span class="cl">DataFrame</span>({
+    <span class="str">"Name"</span>:  [<span class="str">"Alice"</span>, <span class="str">"Bob"</span>, <span class="str">"Carol"</span>],
+    <span class="str">"Score"</span>: [<span class="num">95</span>, <span class="num">87</span>, <span class="num">92</span>]
+})
+<span class="fn">print</span>(df.<span class="fn">describe</span>())
+<span class="fn">print</span>(df[df[<span class="str">"Score"</span>] > <span class="num">90</span>])</pre>
+                        </div>
+                    `
+                    }
+                ]
+            },
+
+            // ── JAVA ─────────────────────────────────────────────────────────────
+            java: {
+                icon: '☕',
+                badge: { text: 'Java', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
+                title: 'Java Programming — Core to OOP',
+                meta: ['⏱ ~2.5 hours', '🎯 Beginner → Intermediate', '💻 Console programs'],
+                sections: [
+                    {
+                        id: 'intro', title: 'Introduction to Java',
+                        content: `
+                        <p>Java is a class-based, object-oriented programming language designed to have as few implementation dependencies as possible. <strong>Write Once, Run Anywhere (WORA)</strong> — compiled Java runs on any device with a JVM.</p>
+                        <div class="info-box"><strong>JDK vs JRE vs JVM:</strong><br>
+                        • <strong>JVM</strong> — Java Virtual Machine (executes bytecode)<br>
+                        • <strong>JRE</strong> — JVM + runtime libraries<br>
+                        • <strong>JDK</strong> — JRE + development tools (what you install)</div>
+                        <h3>First Program</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="kw">public class</span> <span class="cl">HelloWorld</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        System.out.<span class="fn">println</span>(<span class="str">"Hello, World!"</span>);
+    }
+}</pre>
+                        </div>
+                    `
+                    },
+                    {
+                        id: 'datatypes', title: 'Data Types & Variables',
+                        content: `
+                        <p>Java is <strong>statically typed</strong> — you must declare variable types.</p>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="cm">// Primitive types</span>
+<span class="kw">int</span>     age    = <span class="num">25</span>;
+<span class="kw">double</span>  gpa    = <span class="num">3.8</span>;
+<span class="kw">char</span>    grade  = <span class="str">'A'</span>;
+<span class="kw">boolean</span> active = <span class="kw">true</span>;
+<span class="kw">long</span>    bigNum = <span class="num">9876543210L</span>;
+
+<span class="cm">// String (object, not primitive)</span>
+String name = <span class="str">"Alice"</span>;
+System.out.<span class="fn">println</span>(<span class="str">"Name: "</span> + name + <span class="str">", Age: "</span> + age);
+
+<span class="cm">// Array</span>
+<span class="kw">int</span>[] scores = {<span class="num">85</span>, <span class="num">92</span>, <span class="num">78</span>, <span class="num">96</span>};
+System.out.<span class="fn">println</span>(scores[<span class="num">0</span>]);  <span class="cm">// 85</span></pre>
+                        </div>
+                    `
+                    },
+                    {
+                        id: 'control', title: 'Control Flow',
+                        content: `
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="kw">int</span> score = <span class="num">88</span>;
+
+<span class="cm">// if-else</span>
+<span class="kw">if</span> (score >= <span class="num">90</span>) {
+    System.out.<span class="fn">println</span>(<span class="str">"A"</span>);
+} <span class="kw">else if</span> (score >= <span class="num">75</span>) {
+    System.out.<span class="fn">println</span>(<span class="str">"B"</span>);
+} <span class="kw">else</span> {
+    System.out.<span class="fn">println</span>(<span class="str">"C"</span>);
+}
+
+<span class="cm">// for loop</span>
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < <span class="num">5</span>; i++) {
+    System.out.<span class="fn">println</span>(i);
+}
+
+<span class="cm">// Enhanced for (for-each)</span>
+<span class="kw">int</span>[] arr = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>};
+<span class="kw">for</span> (<span class="kw">int</span> num : arr) {
+    System.out.<span class="fn">println</span>(num);
+}
+
+<span class="cm">// Switch (Java 14+ arrow syntax)</span>
+String day = <span class="str">"MON"</span>;
+String type = <span class="kw">switch</span>(day) {
+    <span class="kw">case</span> <span class="str">"SAT"</span>, <span class="str">"SUN"</span> -> <span class="str">"Weekend"</span>;
+    <span class="kw">default</span>             -> <span class="str">"Weekday"</span>;
+};</pre>
+                        </div>
+                    `
+                    },
+                    {
+                        id: 'oop', title: 'Object-Oriented Programming',
+                        content: `
+                        <p>Java is fundamentally OOP. The 4 pillars: <strong>Encapsulation, Inheritance, Polymorphism, Abstraction</strong>.</p>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="kw">public class</span> <span class="cl">Animal</span> {
+    <span class="kw">private</span> String name;
+
+    <span class="kw">public</span> <span class="cl">Animal</span>(String name) {
+        <span class="kw">this</span>.name = name;
+    }
+
+    <span class="kw">public</span> String <span class="fn">getName</span>() { <span class="kw">return</span> name; }
+
+    <span class="kw">public</span> String <span class="fn">speak</span>() {
+        <span class="kw">return</span> <span class="str">"..."</span>;
+    }
+}
+
+<span class="kw">public class</span> <span class="cl">Dog</span> <span class="kw">extends</span> <span class="cl">Animal</span> {
+    <span class="kw">public</span> <span class="cl">Dog</span>(String name) {
+        <span class="kw">super</span>(name);
+    }
+
+    <span class="cm">// Polymorphism — method override</span>
+    @Override
+    <span class="kw">public</span> String <span class="fn">speak</span>() {
+        <span class="kw">return</span> <span class="fn">getName</span>() + <span class="str">" says Woof!"</span>;
+    }
+}
+
+<span class="cm">// Usage</span>
+<span class="cl">Animal</span> a = <span class="kw">new</span> <span class="cl">Dog</span>(<span class="str">"Rex"</span>);
+System.out.<span class="fn">println</span>(a.<span class="fn">speak</span>());  <span class="cm">// Rex says Woof!</span></pre>
+                        </div>
+                    `
+                    },
+                    {
+                        id: 'collections', title: 'Collections Framework',
+                        content: `
+                        <p>Java provides powerful collection classes in <code>java.util</code>.</p>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="kw">import</span> java.util.*;
+
+<span class="cm">// ArrayList — dynamic array</span>
+List&lt;String&gt; names = <span class="kw">new</span> ArrayList&lt;&gt;();
+names.<span class="fn">add</span>(<span class="str">"Alice"</span>);
+names.<span class="fn">add</span>(<span class="str">"Bob"</span>);
+names.<span class="fn">forEach</span>(System.out::println);
+
+<span class="cm">// HashMap — key-value store</span>
+Map&lt;String, Integer&gt; scores = <span class="kw">new</span> HashMap&lt;&gt;();
+scores.<span class="fn">put</span>(<span class="str">"Alice"</span>, <span class="num">95</span>);
+scores.<span class="fn">put</span>(<span class="str">"Bob"</span>,   <span class="num">87</span>);
+System.out.<span class="fn">println</span>(scores.<span class="fn">get</span>(<span class="str">"Alice"</span>));  <span class="cm">// 95</span>
+
+<span class="cm">// Stream API (Java 8+)</span>
+names.stream()
+     .<span class="fn">filter</span>(n -> n.<span class="fn">startsWith</span>(<span class="str">"A"</span>))
+     .<span class="fn">forEach</span>(System.out::println);</pre>
+                        </div>
+                    `
+                    }
+                ]
+            },
+
+            // ── DATA SCIENCE ─────────────────────────────────────────────────────
+            datascience: {
+                icon: '📊',
+                badge: { text: 'Data Science', color: '#22c55e', bg: 'rgba(34,197,94,0.12)' },
+                title: 'Data Science with Python',
+                meta: ['⏱ ~3 hours', '🎯 Intermediate', '📊 Real datasets'],
+                sections: [
+                    {
+                        id: 'intro', title: 'What is Data Science?',
+                        content: `
+                        <p>Data Science is the process of extracting knowledge and insights from structured and unstructured data. It combines statistics, programming, and domain expertise.</p>
+                        <div class="info-box"><strong>The Data Science Pipeline:</strong><br>
+                        1. <strong>Collect</strong> data → 2. <strong>Clean</strong> it → 3. <strong>Explore</strong> (EDA) → 4. <strong>Model</strong> → 5. <strong>Evaluate</strong> → 6. <strong>Deploy</strong></div>
+                        <h3>Setup</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre>pip install numpy pandas matplotlib seaborn scikit-learn jupyter</pre>
+                        </div>
+                    `
+                    },
+                    {
+                        id: 'pandas', title: 'Data Manipulation with Pandas',
+                        content: `
+                        <p>Pandas is the go-to library for data manipulation. It provides the <code>DataFrame</code> — a 2D table with labeled axes.</p>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="cm"># Load data</span>
+<span class="var">df</span> = pd.<span class="fn">read_csv</span>(<span class="str">"data.csv"</span>)
+
+<span class="cm"># Explore</span>
+<span class="fn">print</span>(df.<span class="fn">head</span>())           <span class="cm"># First 5 rows</span>
+<span class="fn">print</span>(df.<span class="fn">info</span>())           <span class="cm"># Columns, types</span>
+<span class="fn">print</span>(df.<span class="fn">describe</span>())      <span class="cm"># Stats summary</span>
+<span class="fn">print</span>(df.<span class="fn">isnull</span>().<span class="fn">sum</span>())  <span class="cm"># Missing values</span>
+
+<span class="cm"># Clean</span>
+<span class="var">df</span> = df.<span class="fn">dropna</span>()           <span class="cm"># Remove nulls</span>
+<span class="var">df</span>[<span class="str">"Age"</span>] = df[<span class="str">"Age"</span>].<span class="fn">fillna</span>(df[<span class="str">"Age"</span>].<span class="fn">mean</span>())
+
+<span class="cm"># Filter & sort</span>
+<span class="var">adults</span> = df[df[<span class="str">"Age"</span>] >= <span class="num">18</span>]
+<span class="var">top5</span>   = df.<span class="fn">sort_values</span>(<span class="str">"Score"</span>, ascending=<span class="kw">False</span>).<span class="fn">head</span>(<span class="num">5</span>)
+
+<span class="cm"># Group by</span>
+<span class="var">avg_by_dept</span> = df.<span class="fn">groupby</span>(<span class="str">"Department"</span>)[<span class="str">"Salary"</span>].<span class="fn">mean</span>()</pre>
+                        </div>
+                    `
+                    },
+                    {
+                        id: 'viz', title: 'Data Visualization',
+                        content: `
+                        <p>Visualizations help discover patterns, outliers, and relationships in data.</p>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">import</span> seaborn <span class="kw">as</span> sns
+
+<span class="cm"># Line chart</span>
+plt.<span class="fn">plot</span>(df[<span class="str">"Month"</span>], df[<span class="str">"Revenue"</span>], marker=<span class="str">'o'</span>)
+plt.<span class="fn">title</span>(<span class="str">"Monthly Revenue"</span>)
+plt.<span class="fn">show</span>()
+
+<span class="cm"># Histogram</span>
+plt.<span class="fn">hist</span>(df[<span class="str">"Age"</span>], bins=<span class="num">20</span>, color=<span class="str">"steelblue"</span>)
+
+<span class="cm"># Correlation heatmap</span>
+sns.<span class="fn">heatmap</span>(df.<span class="fn">corr</span>(), annot=<span class="kw">True</span>, cmap=<span class="str">"coolwarm"</span>)
+
+<span class="cm"># Box plot</span>
+sns.<span class="fn">boxplot</span>(x=<span class="str">"Category"</span>, y=<span class="str">"Value"</span>, data=df)
+
+<span class="cm"># Scatter plot</span>
+sns.<span class="fn">scatterplot</span>(x=<span class="str">"Height"</span>, y=<span class="str">"Weight"</span>, hue=<span class="str">"Gender"</span>, data=df)</pre>
+                        </div>
+                    `
+                    },
+                    {
+                        id: 'ml', title: 'Machine Learning Basics',
+                        content: `
+                        <p>Machine learning allows computers to learn from data without being explicitly programmed.</p>
+                        <div class="tip-box">📌 <strong>Types:</strong> Supervised (labeled data) | Unsupervised (unlabeled) | Reinforcement (rewards)</div>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="kw">from</span> sklearn.model_selection <span class="kw">import</span> train_test_split
+<span class="kw">from</span> sklearn.linear_model  <span class="kw">import</span> LinearRegression
+<span class="kw">from</span> sklearn.metrics        <span class="kw">import</span> mean_squared_error, r2_score
+
+<span class="cm"># Features & target</span>
+<span class="var">X</span> = df[[<span class="str">"Hours_Studied"</span>, <span class="str">"Attendance"</span>]]
+<span class="var">y</span> = df[<span class="str">"Exam_Score"</span>]
+
+<span class="cm"># Split data</span>
+<span class="var">X_train</span>, <span class="var">X_test</span>, <span class="var">y_train</span>, <span class="var">y_test</span> = train_test_split(
+    X, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>
+)
+
+<span class="cm"># Train model</span>
+<span class="var">model</span> = <span class="cl">LinearRegression</span>()
+model.<span class="fn">fit</span>(X_train, y_train)
+
+<span class="cm"># Evaluate</span>
+<span class="var">y_pred</span> = model.<span class="fn">predict</span>(X_test)
+<span class="fn">print</span>(<span class="str">"R² Score:"</span>, <span class="fn">r2_score</span>(y_test, y_pred))
+<span class="fn">print</span>(<span class="str">"RMSE:"</span>    , mean_squared_error(y_test, y_pred, squared=<span class="kw">False</span>))</pre>
+                        </div>
+                    `
+                    },
+                    {
+                        id: 'classification', title: 'Classification Example',
+                        content: `
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="kw">from</span> sklearn.ensemble        <span class="kw">import</span> RandomForestClassifier
+<span class="kw">from</span> sklearn.metrics         <span class="kw">import</span> classification_report
+<span class="kw">from</span> sklearn.preprocessing  <span class="kw">import</span> LabelEncoder
+
+<span class="cm"># Encode categorical columns</span>
+<span class="var">le</span> = <span class="cl">LabelEncoder</span>()
+<span class="var">df</span>[<span class="str">"Gender"</span>] = le.<span class="fn">fit_transform</span>(df[<span class="str">"Gender"</span>])
+
+<span class="cm"># Build & train</span>
+<span class="var">clf</span> = <span class="cl">RandomForestClassifier</span>(n_estimators=<span class="num">100</span>, random_state=<span class="num">42</span>)
+clf.<span class="fn">fit</span>(X_train, y_train)
+
+<span class="cm"># Report</span>
+<span class="fn">print</span>(<span class="fn">classification_report</span>(y_test, clf.<span class="fn">predict</span>(X_test)))</pre>
+                        </div>
+                    `
+                    }
+                ]
+            },
+
+            // ── POWER BI ─────────────────────────────────────────────────────────
+            powerbi: {
+                icon: '📈',
+                badge: { text: 'Power BI', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
+                title: 'Power BI — Dashboards & Data Viz',
+                meta: ['⏱ ~2 hours', '🎯 Beginner → Intermediate', '📈 Business Intelligence'],
+                sections: [
+                    {
+                        id: 'intro', title: 'Introduction to Power BI',
+                        content: `
+                        <p>Microsoft Power BI is a business analytics tool that lets you visualize data and share insights. It connects to hundreds of data sources and creates interactive dashboards.</p>
+                        <div class="tip-box">💡 <strong>Power BI Desktop</strong> is free to download from <strong>powerbi.microsoft.com</strong></div>
+                        <ul>
+                            <li><strong>Power BI Desktop</strong> — Create reports locally</li>
+                            <li><strong>Power BI Service</strong> — Cloud-based sharing</li>
+                            <li><strong>Power BI Mobile</strong> — View on mobile devices</li>
+                        </ul>
+                    `
+                    },
+                    {
+                        id: 'connect', title: 'Connecting to Data Sources',
+                        content: `
+                        <p>Power BI can connect to 100+ data sources including Excel, SQL Server, SharePoint, APIs, and cloud databases.</p>
+                        <h3>Steps to Import Data</h3>
+                        <ol>
+                            <li>Click <strong>Home → Get Data</strong></li>
+                            <li>Choose source (Excel, CSV, SQL Server, etc.)</li>
+                            <li>Select tables/sheets to import</li>
+                            <li>Click <strong>Load</strong> or <strong>Transform Data</strong> (to clean first)</li>
+                        </ol>
+                        <div class="info-box"><strong>Power Query Editor</strong> opens when you click "Transform Data" — this is where you clean, reshape, and filter your data before loading.</div>
+                        <h3>Common Transformations</h3>
+                        <ul>
+                            <li>Remove duplicates and null rows</li>
+                            <li>Change column data types</li>
+                            <li>Split / merge columns</li>
+                            <li>Filter rows by conditions</li>
+                            <li>Append or merge multiple tables</li>
+                        </ul>
+                    `
+                    },
+                    {
+                        id: 'dax', title: 'DAX — Data Analysis Expressions',
+                        content: `
+                        <p>DAX is the formula language used in Power BI to create custom calculations.</p>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">dax</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                            <pre><span class="cm">-- Calculated Column</span>
+Profit = Sales[Revenue] - Sales[Cost]
+
+<span class="cm">-- Measure</span>
+Total Sales = SUM(Sales[Revenue])
+
+<span class="cm">-- Average</span>
+Avg Order Value = AVERAGE(Sales[OrderAmount])
+
+<span class="cm">-- Conditional (IF)</span>
+Sales Category =
+    IF(Sales[Revenue] > 10000, "High", "Low")
+
+<span class="cm">-- CALCULATE (context modifier)</span>
+Q1 Sales =
+    CALCULATE(
+        SUM(Sales[Revenue]),
+        Sales[Quarter] = "Q1"
+    )
+
+<span class="cm">-- Year-to-Date</span>
+YTD Revenue =
+    TOTALYTD(SUM(Sales[Revenue]), Dates[Date])</pre>
+                        </div>
+                    `
+                    },
+                    {
+                        id: 'visuals', title: 'Building Visuals & Reports',
+                        content: `
+                        <p>Drag and drop fields onto the canvas to create visuals. Power BI auto-suggests the best chart type.</p>
+                        <h3>Common Visualizations</h3>
+                        <ul>
+                            <li>📊 <strong>Bar / Column Chart</strong> — Compare categories</li>
+                            <li>📈 <strong>Line Chart</strong> — Trends over time</li>
+                            <li>🥧 <strong>Pie / Donut Chart</strong> — Part of whole</li>
+                            <li>🗺 <strong>Map</strong> — Geographic data</li>
+                            <li>📋 <strong>Table / Matrix</strong> — Tabular data with totals</li>
+                            <li>🃏 <strong>Card</strong> — Single KPI number</li>
+                            <li>📉 <strong>Scatter Chart</strong> — Correlations</li>
+                        </ul>
+                        <h3>Slicers (Filters)</h3>
+                        <p>Slicers let users filter the entire report page interactively. Add a <strong>Slicer</strong> visual and bind it to a Date or Category column.</p>
+                        <div class="tip-box">🎯 <strong>Best Practice:</strong> Use a <strong>Date Table</strong> (mark as Date Table in modeling) for time intelligence functions like TOTALYTD, SAMEPERIODLASTYEAR to work correctly.</div>
+                    `
+                    },
+                    {
+                        id: 'relationships', title: 'Data Model & Relationships',
+                        content: `
+                        <p>A proper data model uses a <strong>Star Schema</strong> — one central Fact table linked to multiple Dimension tables.</p>
+                        <div class="info-box">
+                            <strong>Star Schema Example:</strong><br>
+                            📦 <strong>Fact_Sales</strong> (OrderID, ProductID, CustomerID, DateID, Amount)<br>
+                            🧩 <strong>Dim_Product</strong> (ProductID, Name, Category)<br>
+                            🧩 <strong>Dim_Customer</strong> (CustomerID, Name, Region)<br>
+                            🧩 <strong>Dim_Date</strong> (DateID, Year, Month, Quarter)
+                        </div>
+                        <h3>Creating Relationships</h3>
+                        <ol>
+                            <li>Go to <strong>Model View</strong></li>
+                            <li>Drag a key from one table to another</li>
+                            <li>Set cardinality: <strong>Many-to-One (recommended)</strong></li>
+                            <li>Cross-filter direction: <strong>Single</strong> (usually)</li>
+                        </ol>
+                    `
+                    }
+                ]
+            }
+        };
+
+        // ════════════════════════════════════════════════════════════════════════
+        // RENDER ENGINE
+        // ════════════════════════════════════════════════════════════════════════
+        function render() {
+            const params = new URLSearchParams(window.location.search);
+            const topic = (params.get('topic') || 'python').toLowerCase();
+            const data = TUTORIALS[topic] || TUTORIALS['python'];
+
+            document.title = data.title + ' — Tutorial';
+
+            // Sidebar
+            document.getElementById('sidebarIcon').textContent = data.icon;
+            document.getElementById('sidebarLabel').textContent = data.badge.text;
+
+            const tocList = document.getElementById('tocList');
+            data.sections.forEach((s, i) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="#${s.id}">${i + 1}. ${s.title}</a>`;
+                tocList.appendChild(li);
+            });
+
+            // Main content
+            const badge = `<span class="tutorial-badge" style="color:${data.badge.color};background:${data.badge.bg};">${data.icon} ${data.badge.text}</span>`;
+            const metaHtml = data.meta.map(m => `<span>${m}</span>`).join('');
+
+            let sectionsHtml = data.sections.map((s, i) => `
+            <div class="section" id="${s.id}">
+                <h2><span class="num">${i + 1}</span>${s.title}</h2>
+                ${s.content}
+            </div>
+            ${i < data.sections.length - 1 ? '<hr class="divider">' : ''}
+        `).join('');
+
+            document.getElementById('tutorialContent').innerHTML = `
+            ${badge}
+            <h1 class="tutorial-title">${data.title}</h1>
+            <div class="tutorial-meta">${metaHtml}</div>
+            <hr class="divider">
+            ${sectionsHtml}
+        `;
+
+            // Highlight active TOC on scroll
+            setupScrollSpy(data.sections);
+        }
+
+        function setupScrollSpy(sections) {
+            const bar = document.getElementById('progressBar');
+            const links = document.querySelectorAll('.toc-list a');
+
+            window.addEventListener('scroll', () => {
+                // Progress bar
+                const scrolled = window.scrollY;
+                const total = document.body.scrollHeight - window.innerHeight;
+                bar.style.width = (scrolled / total * 100) + '%';
+
+                // Active section highlight
+                let current = '';
+                sections.forEach(s => {
+                    const el = document.getElementById(s.id);
+                    if (el && window.scrollY >= el.offsetTop - 100) {
+                        current = s.id;
+                    }
+                });
+                links.forEach(a => {
+                    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+                });
+            });
+        }
+
+        function copyCode(btn) {
+            const pre = btn.closest('.code-block').querySelector('pre');
+            navigator.clipboard.writeText(pre.innerText).then(() => {
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 2000);
+            });
+        }
+
+        // Init
+        render();
+
+        // Identity SDK
+        try {
+            if (typeof Identity !== 'undefined') {
+                Identity.init('testsite', 'QW5dcysguZI2BhVpm0_zSvrNNMk4jQ5MAGjBqn6f5E8', {
+                    apiUrl: 'https://choiceless-lakeesha-ichthyophagous.ngrok-free.dev',
+                    debug: true
+                });
+                Identity.trackPageView({ page_url: window.location.href })
+                    .catch(e => console.error('Failed to track page view:', e));
+            }
+        } catch (e) { }
+    </script>
+</body>
+
+</html>
