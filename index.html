@@ -386,6 +386,20 @@
         <div class="log-inner" id="logInner"></div>
     </div>
 
+    <!-- ngrok interstitial bypass -->
+    <script>
+        const _fetch = window.fetch;
+        window.fetch = function (url, opts = {}) {
+            if (!opts.headers) opts.headers = {};
+            if (opts.headers instanceof Headers) {
+                opts.headers.set('ngrok-skip-browser-warning', 'true');
+            } else {
+                opts.headers['ngrok-skip-browser-warning'] = 'true';
+            }
+            return _fetch(url, opts);
+        };
+    </script>
+
     <script src="./identity.min.js"></script>
     <script>
         const SITE = 'testsite';
