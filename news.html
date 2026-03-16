@@ -242,9 +242,7 @@
                     apiUrl: 'https://choiceless-lakeesha-ichthyophagous.ngrok-free.dev',
                     debug: true
                 });
-                Identity.trackPageView({ page_url: window.location.href })
-                    .then(() => console.log('Page view tracked successfully for News page!'))
-                    .catch(e => console.error('Failed to track page view:', e));
+                // Inga iruntha andha 3 lines-a (trackPageView) thookiyachu!
             }
         } catch (e) {
             console.error('Identity SDK initialization failed:', e);
