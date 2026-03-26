@@ -407,6 +407,26 @@
         const KEY = 'QW5dcysguZI2BhVpm0_zSvrNNMk4jQ5MAGjBqn6f5E8';
         const API_URL = 'https://choiceless-lakeesha-ichthyophagous.ngrok-free.dev';
 
+        // FingerprintJS Pro Integration
+        const fpPromise = import('https://fpjscdn.net/v4/RJ3xHEh9CDW7TGSoIGrj')
+            .then(Fingerprint => Fingerprint.start({ region: "us" }));
+
+        // Get the visitor identifier and update UI/log
+        fpPromise
+            .then(fp => fp.get())
+            .then(result => {
+                console.log("FingerprintJS Event:", result.event_id, result.visitor_id);
+                log('event', `FingerprintJS — Event: ${result.event_id.substring(0, 8)}... | Visitor: ${result.visitor_id}`);
+                
+                // Update UI if needed
+                const visitorEl = document.getElementById('val-visitor');
+                if (visitorEl && (visitorEl.textContent.includes('not resolved') || visitorEl.textContent === '—')) {
+                    visitorEl.textContent = result.visitor_id;
+                    visitorEl.className = 'field-val loaded';
+                }
+            })
+            .catch(error => console.error("FingerprintJS error:", error));
+
         let ready = false;
 
         function setStatus(state, text) {
