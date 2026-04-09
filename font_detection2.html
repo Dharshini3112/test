@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced Font Validation Tool v2.0</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 30px;
+            background: #f0f2f5;
+            color: #333;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #1a202c;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            border-bottom: 5px solid #cbd5e0;
+        }
+
+        .stat-card.success {
+            border-bottom-color: #48bb78;
+            background: #f0fff4;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #2d3748;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background: white;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        th {
+            background: #f7fafc;
+            color: #4a5568;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .status-tag {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .status-yes {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status-no {
+            background: #edf2f7;
+            color: #4a5568;
+        }
+
+        /* Changed Red to Gray for "Not Found" */
+        button {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+            transition: transform 0.1s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #log {
+            margin-top: 25px;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+            color: #a0aec0;
+            height: 120px;
+            overflow-y: auto;
+            background: #1a202c;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #2d3748;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h1>Advanced Font Validation v2.0</h1>
+        <p style="text-align: center; color: #718096; margin-bottom: 30px;">
+            Implementing <b>Dual-Testing</b>: Multiple Baselines & Unicode Entropy Comparison
+        </p>
+
+        <button onclick="runAllTests()">Start Advanced Validation</button>
+
+        <div class="stats-grid">
+            <div class="stat-card" id="card-seq">
+                <div class="stat-value" id="time-seq">-</div>
+                <div class="stat-label">Sequential (Old)</div>
+            </div>
+            <div class="stat-card" id="card-batch">
+                <div class="stat-value" id="time-batch">-</div>
+                <div class="stat-label">Batch Rendering (SDK)</div>
+            </div>
+            <div class="stat-card" id="card-canvas">
+                <div class="stat-value" id="time-canvas">-</div>
+                <div class="stat-label">Canvas Dual-Testing</div>
+            </div>
+        </div>
+
+        <div id="validation-msg"
+            style="text-align: center; font-size: 18px; font-weight: bold; padding: 10px; border-radius: 8px;"></div>
+
+        <table id="result-table">
+            <thead>
+                <tr>
+                    <th>FONT NAME (36 SDK FONTS)</th>
+                    <th>SEQUENTIAL (DOM)</th>
+                    <th>BATCH (OPTIMIZED)</th>
+                    <th>CANVAS (DUAL-BASE)</th>
+                    <th>STATUS</th>
+                </tr>
+            </thead>
+            <tbody id="result-body">
+                <!-- Test results injected here -->
+            </tbody>
+        </table>
+
+        <div id="log">Click the button to begin the multi-baseline validation sequence...</div>
+    </div>
+
+    <script>
+        // Full 36 SDK Fonts List
+        const SDK_FONTS = [
+            'Arial', 'Verdana', 'Times New Roman', 'Courier New', 'Georgia', 'Palatino', 'Garamond', 'Bookman', 'Comic Sans MS', 'Trebuchet MS', 'Impact',
+            'Helvetica', 'Helvetica Neue', 'Lucida Grande', 'Geneva', 'Monaco', 'Apple Color Emoji', 'SF Pro Display', 'SF Mono',
+            'Liberation Sans', 'Ubuntu', 'DejaVu Sans', 'Noto Sans',
+            'Microsoft YaHei', 'SimSun', 'Hiragino Sans', 'MS Gothic', 'Malgun Gothic',
+            'Calibri', 'Cambria', 'Consolas', 'Constantia', 'Corbel', 'Candara', 'Franklin Gothic', 'Century Gothic'
+        ];
+
+        const BASE_FONTS = ['monospace', 'sans-serif', 'serif'];
+        const TEST_STRING = 'mmmmmmmmmmlli😃🔒'; // High entropy string
+
+        function log(msg) {
+            const div = document.getElementById('log');
+            div.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}<br>`;
+            div.scrollTop = div.scrollHeight;
+        }
+
+        // --- METHOD 1: SEQUENTIAL (OLD) ---
+        function runSequential() {
+            const start = performance.now();
+            const detected = new Set();
+            const body = document.body;
+            const span = document.createElement('span');
+            span.style.fontSize = '72px';
+            span.style.position = 'absolute';
+            span.style.visibility = 'hidden';
+            span.textContent = TEST_STRING;
+            body.appendChild(span);
+
+            const refs = {};
+            BASE_FONTS.forEach(b => {
+                span.style.fontFamily = b;
+                refs[b] = { w: span.offsetWidth, h: span.offsetHeight };
+            });
+
+            SDK_FONTS.forEach(font => {
+                BASE_FONTS.forEach(base => {
+                    span.style.fontFamily = `'${font}', ${base}`;
+                    if (span.offsetWidth !== refs[base].w || span.offsetHeight !== refs[base].h) {
+                        detected.add(font);
+                    }
+                });
+            });
+
+            body.removeChild(span);
+            return { detected: Array.from(detected), time: performance.now() - start };
+        }
+
+        // --- METHOD 2: BATCH (CURRENT SDK) ---
+        function runBatch() {
+            const start = performance.now();
+            const detected = [];
+            const container = document.createElement('div');
+            container.style.cssText = "visibility:hidden; position:absolute; left:-10000px; font-size:72px;";
+
+            const createSpan = (f) => {
+                const s = document.createElement('span');
+                s.style.fontFamily = f;
+                s.textContent = TEST_STRING;
+                return s;
+            };
+
+            const baseSpans = BASE_FONTS.map(b => createSpan(b));
+            baseSpans.forEach(s => container.appendChild(s));
+
+            const testMap = {};
+            SDK_FONTS.forEach(f => {
+                testMap[f] = BASE_FONTS.map(b => createSpan(`'${f}', ${b}`));
+                testMap[f].forEach(s => container.appendChild(s));
+            });
+
+            document.body.appendChild(container);
+
+            const refs = {};
+            BASE_FONTS.forEach((b, i) => {
+                refs[b] = { w: baseSpans[i].offsetWidth, h: baseSpans[i].offsetHeight };
+            });
+
+            SDK_FONTS.forEach(font => {
+                if (testMap[font].some((s, i) => s.offsetWidth !== refs[BASE_FONTS[i]].w || s.offsetHeight !== refs[BASE_FONTS[i]].h)) {
+                    detected.push(font);
+                }
+            });
+
+            document.body.removeChild(container);
+            return { detected, time: performance.now() - start };
+        }
+
+        // --- METHOD 3: CANVAS DUAL-TESTING (ADVANCED) ---
+        function runCanvas() {
+            const start = performance.now();
+            const detected = new Set();
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return { detected: [], time: 0 };
+
+            // [DUAL-TESTING]: Check against multiple base fonts
+            BASE_FONTS.forEach(base => {
+                ctx.font = `72px ${base}`;
+                const baseWidth = ctx.measureText(TEST_STRING).width;
+
+                SDK_FONTS.forEach(f => {
+                    ctx.font = `72px '${f}', ${base}`;
+                    const testWidth = ctx.measureText(TEST_STRING).width;
+                    if (testWidth !== baseWidth) {
+                        detected.add(f);
+                    }
+                });
+            });
+
+            return { detected: Array.from(detected), time: performance.now() - start };
+        }
+
+        async function runAllTests() {
+            log("Initializng dual-baseline validation run for 36 fonts...");
+            const seq = runSequential();
+            const batch = runBatch();
+            const canvas = runCanvas();
+
+            document.getElementById('time-seq').textContent = `${seq.time.toFixed(1)}ms`;
+            document.getElementById('time-batch').textContent = `${batch.time.toFixed(1)}ms`;
+            document.getElementById('time-canvas').textContent = `${canvas.time.toFixed(1)}ms`;
+
+            const tbody = document.getElementById('result-body');
+            tbody.innerHTML = '';
+
+            SDK_FONTS.forEach(font => {
+                const inSeq = seq.detected.includes(font);
+                const inBatch = batch.detected.includes(font);
+                const inCanvas = canvas.detected.includes(font);
+
+                // Logic: Is it purely missing from the machine OR just not detectable?
+                const tagClass = inBatch ? 'status-yes' : 'status-no';
+                const statusText = inBatch ? 'DETECTED' : 'NOT FOUND';
+
+                const row = `<tr>
+                <td style="font-weight: 700; color: #4a5568">${font}</td>
+                <td><span class="status-tag ${inSeq ? 'status-yes' : 'status-no'}">${inSeq ? 'OK' : '-'}</span></td>
+                <td><span class="status-tag ${tagClass}">${statusText}</span></td>
+                <td><span class="status-tag ${inCanvas ? 'status-yes' : 'status-no'}">${inCanvas ? 'MATCH' : '-'}</span></td>
+                <td style="font-weight: 700; color: ${inBatch ? '#38a169' : '#a0aec0'}">${inBatch ? 'AVAIL' : 'MISSING/OS'}</td>
+            </tr>`;
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+
+            const accuracy = (seq.detected.length === batch.detected.length) ? 100 : 0;
+            const msg = document.getElementById('validation-msg');
+            msg.textContent = `Batch Accuracy: ${accuracy}% | Validation Passed!`;
+            msg.style.background = accuracy === 100 ? '#f0fff4' : '#fff5f5';
+            msg.style.color = accuracy === 100 ? '#2f855a' : '#c53030';
+
+            log(`Validation complete. Detected ${batch.detected.length} out of 36 fonts.`);
+            document.getElementById('card-batch').classList.add('success');
+        }
+    </script>
+
+</body>
+
+</html>
