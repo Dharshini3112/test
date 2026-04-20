@@ -404,7 +404,7 @@
     <script src="./identity.min.js"></script>
     <script>
         const SITE = 'testsite';
-        const KEY = 'QW5dcysguZI2BhVpm0_zSvrNNMk4jQ5MAGjBqn6f5E8';
+        const KEY = '0a299ZV95wVZh8H7_eIuEmKHrlNlLBYvdRoUava7ZFE';
         const API_URL = 'https://choiceless-lakeesha-ichthyophagous.ngrok-free.dev';
 
         // FingerprintJS Pro Integration
@@ -417,7 +417,7 @@
             .then(result => {
                 console.log("FingerprintJS Event:", result.event_id, result.visitor_id);
                 log('event', `FingerprintJS — Event: ${result.event_id.substring(0, 8)}... | Visitor: ${result.visitor_id}`);
-                
+
                 // Update UI if needed
                 const visitorEl = document.getElementById('val-visitor');
                 if (visitorEl && (visitorEl.textContent.includes('not resolved') || visitorEl.textContent === '—')) {
