@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ta">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tutorial</title>
+    <title>பயிற்சி (Tutorial)</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
         rel="stylesheet" />
@@ -414,18 +414,18 @@
             <div class="sidebar-brand">
                 <span class="icon" id="sidebarIcon">📘</span>
                 <div>
-                    <div class="label" id="sidebarLabel">Tutorial</div>
-                    <div class="sub">Learn by doing</div>
+                    <div class="label" id="sidebarLabel">பயிற்சி</div>
+                    <div class="sub">செய்து கற்றுக் கொள்ளுங்கள்</div>
                 </div>
             </div>
-            <div class="toc-title">Table of Contents</div>
+            <div class="toc-title">பொருளடக்கம்</div>
             <ul class="toc-list" id="tocList"></ul>
         </aside>
 
         <!-- Main Content -->
         <main class="main" id="mainContent">
             <a href="news.html" class="back-link">
-                ← Back to Tutorials
+                ← பயிற்சிகளுக்குத் திரும்பு
             </a>
             <div id="tutorialContent"></div>
         </main>
@@ -441,27 +441,27 @@
             // ── PYTHON ───────────────────────────────────────────────────────────
             python: {
                 icon: '🐍',
-                badge: { text: 'Python', color: '#3b82f6', bg: 'rgba(59,130,246,0.12)' },
-                title: 'Python for Beginners to Advanced',
-                meta: ['⏱ ~2 hours', '🎯 Beginner → Advanced', '💻 Hands-on examples'],
+                badge: { text: 'பைதான் (Python)', color: '#3b82f6', bg: 'rgba(59,130,246,0.12)' },
+                title: 'தொடக்கநிலை முதல் மேம்பட்ட நிலை வரை பைதான் (Python)',
+                meta: ['⏱ ~2 மணிநேரம்', '🎯 தொடக்கநிலை → மேம்பட்ட நிலை', '💻 நேரடி உதாரணங்கள்'],
                 sections: [
                     {
-                        id: 'intro', title: 'Introduction to Python',
+                        id: 'intro', title: 'பைதான் (Python) அறிமுகம்',
                         content: `
-                        <p>Python is a high-level, interpreted, and general-purpose programming language. It was created by <strong>Guido van Rossum</strong> and first released in 1991. Python emphasizes code readability and simplicity.</p>
-                        <div class="tip-box">💡 <strong>Why Python?</strong> Python is the #1 language for Data Science, AI/ML, web development, and automation.</div>
-                        <h3>Installing Python</h3>
+                        <p>பைதான் ஒரு உயர்மட்ட, விளக்கமளிக்கும் மற்றும் பொதுப் பயன்பாட்டு நிரலாக்க மொழியாகும். இது <strong>கைடோ வான் ரோஸம்</strong> என்பவரால் உருவாக்கப்பட்டு 1991 இல் முதன்முதலில் வெளியிடப்பட்டது. பைதான் குறியீடு வாசிப்புத் திறன் மற்றும் எளிமைக்கு முக்கியத்துவம் அளிக்கிறது.</p>
+                        <div class="tip-box">💡 <strong>ஏன் பைதான்?</strong> தரவு அறிவியல் (Data Science), AI/ML, இணைய மேம்பாடு மற்றும் ஆட்டோமேஷன் ஆகியவற்றிற்கு பைதான் முதன்மையான மொழியாகும்.</div>
+                        <h3>பைதான் நிறுவுதல்</h3>
                         <ol>
-                            <li>Download from <strong>python.org</strong></li>
-                            <li>Run the installer — check <em>"Add Python to PATH"</em></li>
-                            <li>Verify: open terminal and type <code>python --version</code></li>
+                            <li><strong>python.org</strong> இலிருந்து பதிவிறக்கவும்</li>
+                            <li>நிறுவியைச் செயல்படுத்தவும் — <em>"Add Python to PATH"</em> என்பதைத் தேர்வு செய்யவும்</li>
+                            <li>சரிபார்க்கவும்: டெர்மினலைத் திறந்து <code>python --version</code> எனத் தட்டச்சு செய்யவும்</li>
                         </ol>
                     `
                     },
                     {
-                        id: 'basics', title: 'Variables & Data Types',
+                        id: 'basics', title: 'மாறிகள் (Variables) & தரவு வகைகள்',
                         content: `
-                        <p>Variables store data. Python is dynamically typed — you don't declare types explicitly.</p>
+                        <p>மாறிகள் தரவைச் சேமிக்கின்றன. பைதான் ஒரு டைனமிகல் டைப்டு (dynamically typed) மொழி — நீங்கள் தரவு வகைகளை வெளிப்படையாக அறிவிக்கத் தேவையில்லை.</p>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                             <pre><span class="cm"># Variables</span>
@@ -470,35 +470,35 @@
 <span class="var">gpa</span>  = <span class="num">3.8</span>           <span class="cm"># float</span>
 <span class="var">is_student</span> = <span class="kw">True</span>   <span class="cm"># bool</span>
 
-<span class="cm"># Print</span>
+<span class="cm"># அச்சிடுதல்</span>
 <span class="fn">print</span>(<span class="fn">f</span><span class="str">"Name: {name}, Age: {age}"</span>)
 
-<span class="cm"># Type check</span>
+<span class="cm"># வகைச் சரிபார்ப்பு</span>
 <span class="fn">print</span>(<span class="fn">type</span>(gpa))   <span class="cm"># &lt;class 'float'&gt;</span></pre>
                         </div>
-                        <h3>Collections</h3>
+                        <h3>தொகுப்புகள் (Collections)</h3>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="cm"># List — ordered, mutable</span>
+                            <pre><span class="cm"># List — வரிசைப்படுத்தப்பட்டது, மாற்றக்கூடியது</span>
 <span class="var">fruits</span> = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"cherry"</span>]
 <span class="var">fruits</span>.<span class="fn">append</span>(<span class="str">"mango"</span>)
 
-<span class="cm"># Tuple — ordered, immutable</span>
+<span class="cm"># Tuple — வரிசைப்படுத்தப்பட்டது, மாற்ற முடியாதது</span>
 <span class="var">coords</span> = (<span class="num">10.5</span>, <span class="num">20.3</span>)
 
-<span class="cm"># Dictionary — key-value pairs</span>
+<span class="cm"># Dictionary — கீ-வேல்யூ (key-value) ஜோடிகள்</span>
 <span class="var">student</span> = {<span class="str">"name"</span>: <span class="str">"Bob"</span>, <span class="str">"age"</span>: <span class="num">20</span>, <span class="str">"gpa"</span>: <span class="num">3.5</span>}
 <span class="fn">print</span>(student[<span class="str">"name"</span>])  <span class="cm"># Bob</span>
 
-<span class="cm"># Set — unique values</span>
+<span class="cm"># Set — தனித்துவமான மதிப்புகள்</span>
 <span class="var">nums</span> = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">2</span>, <span class="num">1</span>}  <span class="cm"># {1, 2, 3}</span></pre>
                         </div>
                     `
                     },
                     {
-                        id: 'control', title: 'Control Flow',
+                        id: 'control', title: 'கட்டுப்பாட்டு ஓட்டம் (Control Flow)',
                         content: `
-                        <p>Python uses indentation (spaces) instead of curly braces to define code blocks.</p>
+                        <p>பைதான் குறியீடு தொகுப்புகளை வரையறுக்க சுருள் அடைப்புக்குறிகளுக்கு (curly braces) பதிலாக உள்தள்ளலை (indentation - இடவெளி) பயன்படுத்துகிறது.</p>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                             <pre><span class="cm"># if / elif / else</span>
@@ -510,25 +510,25 @@
 <span class="kw">else</span>:
     <span class="fn">print</span>(<span class="str">"Grade: C"</span>)
 
-<span class="cm"># for loop</span>
+<span class="cm"># for லூப்</span>
 <span class="kw">for</span> fruit <span class="kw">in</span> [<span class="str">"apple"</span>, <span class="str">"banana"</span>]:
     <span class="fn">print</span>(fruit)
 
-<span class="cm"># while loop</span>
+<span class="cm"># while லூப்</span>
 <span class="var">i</span> = <span class="num">0</span>
 <span class="kw">while</span> i < <span class="num">5</span>:
     <span class="fn">print</span>(i)
     i += <span class="num">1</span>
 
-<span class="cm"># List comprehension (Pythonic!)</span>
+<span class="cm"># List comprehension (பைதான் முறை!)</span>
 <span class="var">squares</span> = [x**<span class="num">2</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>)]</pre>
                         </div>
                     `
                     },
                     {
-                        id: 'functions', title: 'Functions & OOP',
+                        id: 'functions', title: 'சார்புகள் (Functions) & OOP',
                         content: `
-                        <h3>Functions</h3>
+                        <h3>சார்புகள் (Functions)</h3>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                             <pre><span class="kw">def</span> <span class="fn">greet</span>(name, greeting=<span class="str">"Hello"</span>):
@@ -537,11 +537,11 @@
 <span class="fn">print</span>(<span class="fn">greet</span>(<span class="str">"Alice"</span>))        <span class="cm"># Hello, Alice!</span>
 <span class="fn">print</span>(<span class="fn">greet</span>(<span class="str">"Bob"</span>, <span class="str">"Hi"</span>))   <span class="cm"># Hi, Bob!</span>
 
-<span class="cm"># Lambda (anonymous) function</span>
+<span class="cm"># லேம்ப்டா (Lambda - அநாமதேய) சார்பு</span>
 <span class="var">double</span> = <span class="kw">lambda</span> x: x * <span class="num">2</span>
 <span class="fn">print</span>(<span class="fn">double</span>(<span class="num">5</span>))  <span class="cm"># 10</span></pre>
                         </div>
-                        <h3>Classes (OOP)</h3>
+                        <h3>வகுப்புகள் (Classes - OOP)</h3>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                             <pre><span class="kw">class</span> <span class="cl">Animal</span>:
@@ -552,7 +552,7 @@
     <span class="kw">def</span> <span class="fn">speak</span>(<span class="kw">self</span>):
         <span class="kw">return</span> <span class="fn">f</span><span class="str">"{self.name} says {self.sound}!"</span>
 
-<span class="kw">class</span> <span class="cl">Dog</span>(<span class="cl">Animal</span>):   <span class="cm"># Inheritance</span>
+<span class="kw">class</span> <span class="cl">Dog</span>(<span class="cl">Animal</span>):   <span class="cm"># வாரிசுரிமை (Inheritance)</span>
     <span class="kw">def</span> <span class="fn">fetch</span>(<span class="kw">self</span>):
         <span class="kw">return</span> <span class="str">"Fetching the ball!"</span>
 
@@ -563,16 +563,16 @@
                     `
                     },
                     {
-                        id: 'libraries', title: 'Popular Libraries',
+                        id: 'libraries', title: 'பிரபலமான நூலகங்கள் (Libraries)',
                         content: `
-                        <p>Python's power comes from its vast ecosystem of libraries.</p>
+                        <p>பைத்தானின் ஆற்றல் அதன் பரந்த நூலகங்களின் சுற்றுச்சூழல் அமைப்பிலிருந்து வருகிறது.</p>
                         <ul>
-                            <li><strong>NumPy</strong> — Fast numerical computations &amp; arrays</li>
-                            <li><strong>Pandas</strong> — Data manipulation and analysis</li>
-                            <li><strong>Matplotlib / Seaborn</strong> — Data visualization</li>
-                            <li><strong>Requests</strong> — HTTP requests made simple</li>
-                            <li><strong>Flask / FastAPI</strong> — Web frameworks</li>
-                            <li><strong>scikit-learn</strong> — Machine learning</li>
+                            <li><strong>NumPy</strong> — வேகமான எண் கணிப்புகள் மற்றும் அணிகள் (Arrays)</li>
+                            <li><strong>Pandas</strong> — தரவு கையாளுதல் மற்றும் பகுப்பாய்வு</li>
+                            <li><strong>Matplotlib / Seaborn</strong> — தரவு காட்சிப்படுத்தல் (Data visualization)</li>
+                            <li><strong>Requests</strong> — எளிமையான HTTP கோரிக்கைகள்</li>
+                            <li><strong>Flask / FastAPI</strong> — இணைய கட்டமைப்புகள் (Web frameworks)</li>
+                            <li><strong>scikit-learn</strong> — இயந்திர கற்றல் (Machine learning)</li>
                         </ul>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
@@ -593,19 +593,19 @@
             // ── JAVA ─────────────────────────────────────────────────────────────
             java: {
                 icon: '☕',
-                badge: { text: 'Java', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
-                title: 'Java Programming — Core to OOP',
-                meta: ['⏱ ~2.5 hours', '🎯 Beginner → Intermediate', '💻 Console programs'],
+                badge: { text: 'ஜாவா (Java)', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
+                title: 'ஜாவா (Java) நிரலாக்கம் — அடிப்படை முதல் OOP வரை',
+                meta: ['⏱ ~2.5 மணிநேரம்', '🎯 தொடக்கநிலை → இடைநிலை', '💻 கன்சோல் நிரல்கள்'],
                 sections: [
                     {
-                        id: 'intro', title: 'Introduction to Java',
+                        id: 'intro', title: 'ஜாவா (Java) அறிமுகம்',
                         content: `
-                        <p>Java is a class-based, object-oriented programming language designed to have as few implementation dependencies as possible. <strong>Write Once, Run Anywhere (WORA)</strong> — compiled Java runs on any device with a JVM.</p>
+                        <p>ஜாவா என்பது வகுப்பு அடிப்படையிலான (class-based), ஆப்ஜெக்ட் ஓரியண்டட் புரோகிராமிங் மொழியாகும். இது முடிந்தவரை குறைவான செயல்படுத்தல் சார்புகளைக் கொண்டிருக்கும் வகையில் வடிவமைக்கப்பட்டுள்ளது. <strong>ஒருமுறை எழுதுங்கள், எங்கும் இயக்குங்கள் (WORA)</strong> — கம்பைல் செய்யப்பட்ட ஜாவா, JVM கொண்ட எந்த சாதனத்திலும் இயங்கும்.</p>
                         <div class="info-box"><strong>JDK vs JRE vs JVM:</strong><br>
-                        • <strong>JVM</strong> — Java Virtual Machine (executes bytecode)<br>
-                        • <strong>JRE</strong> — JVM + runtime libraries<br>
-                        • <strong>JDK</strong> — JRE + development tools (what you install)</div>
-                        <h3>First Program</h3>
+                        • <strong>JVM</strong> — ஜாவா விர்ச்சுவல் மெஷின் (பைட்-கோடை செயல்படுத்துகிறது)<br>
+                        • <strong>JRE</strong> — JVM + இயக்க நேர நூலகங்கள் (runtime libraries)<br>
+                        • <strong>JDK</strong> — JRE + மேம்பாட்டு கருவிகள் (development tools - நீங்கள் நிறுவுவது)</div>
+                        <h3>முதல் நிரல்</h3>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                             <pre><span class="kw">public class</span> <span class="cl">HelloWorld</span> {
@@ -617,30 +617,30 @@
                     `
                     },
                     {
-                        id: 'datatypes', title: 'Data Types & Variables',
+                        id: 'datatypes', title: 'தரவு வகைகள் & மாறிகள்',
                         content: `
-                        <p>Java is <strong>statically typed</strong> — you must declare variable types.</p>
+                        <p>ஜாவா ஒரு <strong>ஸ்டாட்டிக்கலி டைப்டு (statically typed)</strong> மொழி — நீங்கள் மாறிகளின் வகைகளை அறிவிக்க வேண்டும்.</p>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="cm">// Primitive types</span>
+                            <pre><span class="cm">// அடிப்படை வகைகள் (Primitive types)</span>
 <span class="kw">int</span>     age    = <span class="num">25</span>;
 <span class="kw">double</span>  gpa    = <span class="num">3.8</span>;
 <span class="kw">char</span>    grade  = <span class="str">'A'</span>;
 <span class="kw">boolean</span> active = <span class="kw">true</span>;
 <span class="kw">long</span>    bigNum = <span class="num">9876543210L</span>;
 
-<span class="cm">// String (object, not primitive)</span>
+<span class="cm">// ஸ்ட்ரிங் (பொருள், அடிப்படை அல்ல)</span>
 String name = <span class="str">"Alice"</span>;
 System.out.<span class="fn">println</span>(<span class="str">"Name: "</span> + name + <span class="str">", Age: "</span> + age);
 
-<span class="cm">// Array</span>
+<span class="cm">// அணி (Array)</span>
 <span class="kw">int</span>[] scores = {<span class="num">85</span>, <span class="num">92</span>, <span class="num">78</span>, <span class="num">96</span>};
 System.out.<span class="fn">println</span>(scores[<span class="num">0</span>]);  <span class="cm">// 85</span></pre>
                         </div>
                     `
                     },
                     {
-                        id: 'control', title: 'Control Flow',
+                        id: 'control', title: 'கட்டுப்பாட்டு ஓட்டம் (Control Flow)',
                         content: `
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
@@ -655,7 +655,7 @@ System.out.<span class="fn">println</span>(scores[<span class="num">0</span>]); 
     System.out.<span class="fn">println</span>(<span class="str">"C"</span>);
 }
 
-<span class="cm">// for loop</span>
+<span class="cm">// for லூப்</span>
 <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < <span class="num">5</span>; i++) {
     System.out.<span class="fn">println</span>(i);
 }
@@ -666,7 +666,7 @@ System.out.<span class="fn">println</span>(scores[<span class="num">0</span>]); 
     System.out.<span class="fn">println</span>(num);
 }
 
-<span class="cm">// Switch (Java 14+ arrow syntax)</span>
+<span class="cm">// சுவிட்ச் (Java 14+ அம்பு தொடரியல்)</span>
 String day = <span class="str">"MON"</span>;
 String type = <span class="kw">switch</span>(day) {
     <span class="kw">case</span> <span class="str">"SAT"</span>, <span class="str">"SUN"</span> -> <span class="str">"Weekend"</span>;
@@ -676,9 +676,9 @@ String type = <span class="kw">switch</span>(day) {
                     `
                     },
                     {
-                        id: 'oop', title: 'Object-Oriented Programming',
+                        id: 'oop', title: 'ஆப்ஜெக்ட் ஓரியண்டட் புரோகிராமிங் (OOP)',
                         content: `
-                        <p>Java is fundamentally OOP. The 4 pillars: <strong>Encapsulation, Inheritance, Polymorphism, Abstraction</strong>.</p>
+                        <p>ஜாவா அடிப்படையில் OOP ஆகும். இதனுடைய 4 தூண்கள்: <strong>உறைபொதியாக்கம் (Encapsulation), வாரிசுரிமை (Inheritance), பல்லுருவாக்கம் (Polymorphism), சுருக்கம் (Abstraction)</strong>.</p>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                             <pre><span class="kw">public class</span> <span class="cl">Animal</span> {
@@ -700,7 +700,7 @@ String type = <span class="kw">switch</span>(day) {
         <span class="kw">super</span>(name);
     }
 
-    <span class="cm">// Polymorphism — method override</span>
+    <span class="cm">// பல்லுருவாக்கம் (Polymorphism) — மெத்தட் ஓவர்ரைடு (method override)</span>
     @Override
     <span class="kw">public</span> String <span class="fn">speak</span>() {
         <span class="kw">return</span> <span class="fn">getName</span>() + <span class="str">" says Woof!"</span>;
@@ -714,20 +714,20 @@ System.out.<span class="fn">println</span>(a.<span class="fn">speak</span>());  
                     `
                     },
                     {
-                        id: 'collections', title: 'Collections Framework',
+                        id: 'collections', title: 'தொகுப்பு கட்டமைப்பு (Collections Framework)',
                         content: `
-                        <p>Java provides powerful collection classes in <code>java.util</code>.</p>
+                        <p>ஜாவா <code>java.util</code> தொகுப்பில் சக்திவாய்ந்த தொகுப்பு வகுப்புகளை வழங்குகிறது.</p>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                             <pre><span class="kw">import</span> java.util.*;
 
-<span class="cm">// ArrayList — dynamic array</span>
+<span class="cm">// ArrayList — டைனமிக் அணி</span>
 List&lt;String&gt; names = <span class="kw">new</span> ArrayList&lt;&gt;();
 names.<span class="fn">add</span>(<span class="str">"Alice"</span>);
 names.<span class="fn">add</span>(<span class="str">"Bob"</span>);
 names.<span class="fn">forEach</span>(System.out::println);
 
-<span class="cm">// HashMap — key-value store</span>
+<span class="cm">// HashMap — கீ-வேல்யூ (key-value) ஸ்டோர்</span>
 Map&lt;String, Integer&gt; scores = <span class="kw">new</span> HashMap&lt;&gt;();
 scores.<span class="fn">put</span>(<span class="str">"Alice"</span>, <span class="num">95</span>);
 scores.<span class="fn">put</span>(<span class="str">"Bob"</span>,   <span class="num">87</span>);
@@ -746,17 +746,17 @@ names.stream()
             // ── DATA SCIENCE ─────────────────────────────────────────────────────
             datascience: {
                 icon: '📊',
-                badge: { text: 'Data Science', color: '#22c55e', bg: 'rgba(34,197,94,0.12)' },
-                title: 'Data Science with Python',
-                meta: ['⏱ ~3 hours', '🎯 Intermediate', '📊 Real datasets'],
+                badge: { text: 'தரவு அறிவியல் (Data Science)', color: '#22c55e', bg: 'rgba(34,197,94,0.12)' },
+                title: 'பைதான் (Python) மூலம் தரவு அறிவியல் (Data Science)',
+                meta: ['⏱ ~3 மணிநேரம்', '🎯 இடைநிலை', '📊 உண்மையான தரவுத்தொகுப்புகள்'],
                 sections: [
                     {
-                        id: 'intro', title: 'What is Data Science?',
+                        id: 'intro', title: 'தரவு அறிவியல் (Data Science) என்றால் என்ன?',
                         content: `
-                        <p>Data Science is the process of extracting knowledge and insights from structured and unstructured data. It combines statistics, programming, and domain expertise.</p>
-                        <div class="info-box"><strong>The Data Science Pipeline:</strong><br>
-                        1. <strong>Collect</strong> data → 2. <strong>Clean</strong> it → 3. <strong>Explore</strong> (EDA) → 4. <strong>Model</strong> → 5. <strong>Evaluate</strong> → 6. <strong>Deploy</strong></div>
-                        <h3>Setup</h3>
+                        <p>தரவு அறிவியல் என்பது கட்டமைக்கப்பட்ட மற்றும் கட்டமைக்கப்படாத தரவுகளிலிருந்து அறிவு மற்றும் நுண்ணறிவுகளைப் பிரித்தெடுக்கும் செயல்முறையாகும். இது புள்ளிவிவரங்கள், நிரலாக்கம் மற்றும் டொமைன் நிபுணத்துவத்தை ஒருங்கிணைக்கிறது.</p>
+                        <div class="info-box"><strong>தரவு அறிவியல் குழாய்வழி (The Data Science Pipeline):</strong><br>
+                        1. தரவை <strong>சேகரித்தல் (Collect)</strong> → 2. அதை <strong>சுத்தம் செய்தல் (Clean)</strong> → 3. <strong>ஆராய்தல் (Explore - EDA)</strong> → 4. <strong>மாதிரி அமைத்தல் (Model)</strong> → 5. <strong>மதிப்பிடுதல் (Evaluate)</strong> → 6. <strong>பயன்படுத்துதல் (Deploy)</strong></div>
+                        <h3>அமைப்பு (Setup)</h3>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                             <pre>pip install numpy pandas matplotlib seaborn scikit-learn jupyter</pre>
@@ -764,88 +764,88 @@ names.stream()
                     `
                     },
                     {
-                        id: 'pandas', title: 'Data Manipulation with Pandas',
+                        id: 'pandas', title: 'Pandas மூலம் தரவு கையாளுதல்',
                         content: `
-                        <p>Pandas is the go-to library for data manipulation. It provides the <code>DataFrame</code> — a 2D table with labeled axes.</p>
+                        <p>தரவு கையாளுதலுக்கான முதன்மையான நூலகம் Pandas ஆகும். இது <code>DataFrame</code> ஐ வழங்குகிறது — இது லேபிளிடப்பட்ட அச்சுகளைக் கொண்ட ஒரு 2D அட்டவணை ஆகும்.</p>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                             <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
 
-<span class="cm"># Load data</span>
+<span class="cm"># தரவை ஏற்றுதல் (Load data)</span>
 <span class="var">df</span> = pd.<span class="fn">read_csv</span>(<span class="str">"data.csv"</span>)
 
-<span class="cm"># Explore</span>
-<span class="fn">print</span>(df.<span class="fn">head</span>())           <span class="cm"># First 5 rows</span>
-<span class="fn">print</span>(df.<span class="fn">info</span>())           <span class="cm"># Columns, types</span>
-<span class="fn">print</span>(df.<span class="fn">describe</span>())      <span class="cm"># Stats summary</span>
-<span class="fn">print</span>(df.<span class="fn">isnull</span>().<span class="fn">sum</span>())  <span class="cm"># Missing values</span>
+<span class="cm"># ஆராய்தல் (Explore)</span>
+<span class="fn">print</span>(df.<span class="fn">head</span>())           <span class="cm"># முதல் 5 வரிசைகள்</span>
+<span class="fn">print</span>(df.<span class="fn">info</span>())           <span class="cm"># நெடுவரிசைகள், வகைகள்</span>
+<span class="fn">print</span>(df.<span class="fn">describe</span>())      <span class="cm"># புள்ளிவிவர சுருக்கம்</span>
+<span class="fn">print</span>(df.<span class="fn">isnull</span>().<span class="fn">sum</span>())  <span class="cm"># விடுபட்ட மதிப்புகள்</span>
 
-<span class="cm"># Clean</span>
-<span class="var">df</span> = df.<span class="fn">dropna</span>()           <span class="cm"># Remove nulls</span>
+<span class="cm"># சுத்தம் செய்தல் (Clean)</span>
+<span class="var">df</span> = df.<span class="fn">dropna</span>()           <span class="cm"># காலியானவற்றை நீக்குதல்</span>
 <span class="var">df</span>[<span class="str">"Age"</span>] = df[<span class="str">"Age"</span>].<span class="fn">fillna</span>(df[<span class="str">"Age"</span>].<span class="fn">mean</span>())
 
-<span class="cm"># Filter & sort</span>
+<span class="cm"># வடிகட்டுதல் & வரிசைப்படுத்துதல்</span>
 <span class="var">adults</span> = df[df[<span class="str">"Age"</span>] >= <span class="num">18</span>]
 <span class="var">top5</span>   = df.<span class="fn">sort_values</span>(<span class="str">"Score"</span>, ascending=<span class="kw">False</span>).<span class="fn">head</span>(<span class="num">5</span>)
 
-<span class="cm"># Group by</span>
+<span class="cm"># குழுப்படுத்துதல் (Group by)</span>
 <span class="var">avg_by_dept</span> = df.<span class="fn">groupby</span>(<span class="str">"Department"</span>)[<span class="str">"Salary"</span>].<span class="fn">mean</span>()</pre>
                         </div>
                     `
                     },
                     {
-                        id: 'viz', title: 'Data Visualization',
+                        id: 'viz', title: 'தரவு காட்சிப்படுத்தல் (Data Visualization)',
                         content: `
-                        <p>Visualizations help discover patterns, outliers, and relationships in data.</p>
+                        <p>காட்சிப்படுத்தல்கள் தரவில் உள்ள வடிவங்கள், முரண்பாடுகள் மற்றும் உறவுகளைக் கண்டறிய உதவுகின்றன.</p>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                             <pre><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
 <span class="kw">import</span> seaborn <span class="kw">as</span> sns
 
-<span class="cm"># Line chart</span>
+<span class="cm"># கோட்டு வரைபடம் (Line chart)</span>
 plt.<span class="fn">plot</span>(df[<span class="str">"Month"</span>], df[<span class="str">"Revenue"</span>], marker=<span class="str">'o'</span>)
 plt.<span class="fn">title</span>(<span class="str">"Monthly Revenue"</span>)
 plt.<span class="fn">show</span>()
 
-<span class="cm"># Histogram</span>
+<span class="cm"># ஹிஸ்டோகிராம் (Histogram)</span>
 plt.<span class="fn">hist</span>(df[<span class="str">"Age"</span>], bins=<span class="num">20</span>, color=<span class="str">"steelblue"</span>)
 
-<span class="cm"># Correlation heatmap</span>
+<span class="cm"># தொடர்பு வெப்ப வரைபடம் (Correlation heatmap)</span>
 sns.<span class="fn">heatmap</span>(df.<span class="fn">corr</span>(), annot=<span class="kw">True</span>, cmap=<span class="str">"coolwarm"</span>)
 
-<span class="cm"># Box plot</span>
+<span class="cm"># பெட்டி வரைபடம் (Box plot)</span>
 sns.<span class="fn">boxplot</span>(x=<span class="str">"Category"</span>, y=<span class="str">"Value"</span>, data=df)
 
-<span class="cm"># Scatter plot</span>
+<span class="cm"># சிதறல் வரைபடம் (Scatter plot)</span>
 sns.<span class="fn">scatterplot</span>(x=<span class="str">"Height"</span>, y=<span class="str">"Weight"</span>, hue=<span class="str">"Gender"</span>, data=df)</pre>
                         </div>
                     `
                     },
                     {
-                        id: 'ml', title: 'Machine Learning Basics',
+                        id: 'ml', title: 'இயந்திர கற்றல் (Machine Learning) அடிப்படைகள்',
                         content: `
-                        <p>Machine learning allows computers to learn from data without being explicitly programmed.</p>
-                        <div class="tip-box">📌 <strong>Types:</strong> Supervised (labeled data) | Unsupervised (unlabeled) | Reinforcement (rewards)</div>
+                        <p>இயந்திர கற்றல் என்பது கணினிகள் வெளிப்படையாக நிரல் செய்யப்படாமல் தரவிலிருந்து கற்றுக்கொள்ள அனுமதிக்கிறது.</p>
+                        <div class="tip-box">📌 <strong>வகைகள்:</strong> மேற்பார்வையிடப்பட்ட (Supervised - லேபிளிடப்பட்ட தரவு) | மேற்பார்வையிடப்படாத (Unsupervised) | வலுவூட்டல் கற்றல் (Reinforcement)</div>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                             <pre><span class="kw">from</span> sklearn.model_selection <span class="kw">import</span> train_test_split
 <span class="kw">from</span> sklearn.linear_model  <span class="kw">import</span> LinearRegression
 <span class="kw">from</span> sklearn.metrics        <span class="kw">import</span> mean_squared_error, r2_score
 
-<span class="cm"># Features & target</span>
+<span class="cm"># அம்சங்கள் & இலக்கு</span>
 <span class="var">X</span> = df[[<span class="str">"Hours_Studied"</span>, <span class="str">"Attendance"</span>]]
 <span class="var">y</span> = df[<span class="str">"Exam_Score"</span>]
 
-<span class="cm"># Split data</span>
+<span class="cm"># தரவைப் பிரித்தல்</span>
 <span class="var">X_train</span>, <span class="var">X_test</span>, <span class="var">y_train</span>, <span class="var">y_test</span> = train_test_split(
     X, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>
 )
 
-<span class="cm"># Train model</span>
+<span class="cm"># மாதிரியைப் பயிற்றுவித்தல்</span>
 <span class="var">model</span> = <span class="cl">LinearRegression</span>()
 model.<span class="fn">fit</span>(X_train, y_train)
 
-<span class="cm"># Evaluate</span>
+<span class="cm"># மதிப்பிடுதல்</span>
 <span class="var">y_pred</span> = model.<span class="fn">predict</span>(X_test)
 <span class="fn">print</span>(<span class="str">"R² Score:"</span>, <span class="fn">r2_score</span>(y_test, y_pred))
 <span class="fn">print</span>(<span class="str">"RMSE:"</span>    , mean_squared_error(y_test, y_pred, squared=<span class="kw">False</span>))</pre>
@@ -853,7 +853,7 @@ model.<span class="fn">fit</span>(X_train, y_train)
                     `
                     },
                     {
-                        id: 'classification', title: 'Classification Example',
+                        id: 'classification', title: 'வகைப்படுத்தல் (Classification) உதாரணம்',
                         content: `
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
@@ -861,15 +861,15 @@ model.<span class="fn">fit</span>(X_train, y_train)
 <span class="kw">from</span> sklearn.metrics         <span class="kw">import</span> classification_report
 <span class="kw">from</span> sklearn.preprocessing  <span class="kw">import</span> LabelEncoder
 
-<span class="cm"># Encode categorical columns</span>
+<span class="cm"># வகைப்படுத்தப்பட்ட நெடுவரிசைகளை குறியீடாக்குதல் (Encode)</span>
 <span class="var">le</span> = <span class="cl">LabelEncoder</span>()
 <span class="var">df</span>[<span class="str">"Gender"</span>] = le.<span class="fn">fit_transform</span>(df[<span class="str">"Gender"</span>])
 
-<span class="cm"># Build & train</span>
+<span class="cm"># உருவாக்குதல் & பயிற்றுவித்தல்</span>
 <span class="var">clf</span> = <span class="cl">RandomForestClassifier</span>(n_estimators=<span class="num">100</span>, random_state=<span class="num">42</span>)
 clf.<span class="fn">fit</span>(X_train, y_train)
 
-<span class="cm"># Report</span>
+<span class="cm"># அறிக்கை</span>
 <span class="fn">print</span>(<span class="fn">classification_report</span>(y_test, clf.<span class="fn">predict</span>(X_test)))</pre>
                         </div>
                     `
@@ -881,47 +881,47 @@ clf.<span class="fn">fit</span>(X_train, y_train)
             powerbi: {
                 icon: '📈',
                 badge: { text: 'Power BI', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
-                title: 'Power BI — Dashboards & Data Viz',
-                meta: ['⏱ ~2 hours', '🎯 Beginner → Intermediate', '📈 Business Intelligence'],
+                title: 'Power BI — டேஷ்போர்டுகள் மற்றும் தரவு காட்சிப்படுத்தல்',
+                meta: ['⏱ ~2 மணிநேரம்', '🎯 தொடக்கநிலை → இடைநிலை', '📈 பிசினஸ் இன்டெலிஜென்ஸ் (BI)'],
                 sections: [
                     {
-                        id: 'intro', title: 'Introduction to Power BI',
+                        id: 'intro', title: 'Power BI அறிமுகம்',
                         content: `
-                        <p>Microsoft Power BI is a business analytics tool that lets you visualize data and share insights. It connects to hundreds of data sources and creates interactive dashboards.</p>
-                        <div class="tip-box">💡 <strong>Power BI Desktop</strong> is free to download from <strong>powerbi.microsoft.com</strong></div>
+                        <p>மைக்ரோசாப்ட் Power BI என்பது தரவைக் காட்சிப்படுத்தவும் நுண்ணறிவுகளைப் பகிரவும் அனுமதிக்கும் ஒரு வணிக பகுப்பாய்வுக் கருவியாகும். இது நூற்றுக்கணக்கான தரவு மூலங்களுடன் இணைக்கப்பட்டு ஊடாடும் (interactive) டேஷ்போர்டுகளை உருவாக்குகிறது.</p>
+                        <div class="tip-box">💡 <strong>Power BI Desktop</strong> ஐ <strong>powerbi.microsoft.com</strong> இலிருந்து இலவசமாகப் பதிவிறக்கம் செய்யலாம்.</div>
                         <ul>
-                            <li><strong>Power BI Desktop</strong> — Create reports locally</li>
-                            <li><strong>Power BI Service</strong> — Cloud-based sharing</li>
-                            <li><strong>Power BI Mobile</strong> — View on mobile devices</li>
+                            <li><strong>Power BI Desktop</strong> — அறிக்கைகளை உள்ளூர் கணினியில் உருவாக்குதல்</li>
+                            <li><strong>Power BI Service</strong> — கிளவுட் அடிப்படையிலான பகிர்வு</li>
+                            <li><strong>Power BI Mobile</strong> — மொபைல் சாதனங்களில் பார்க்க</li>
                         </ul>
                     `
                     },
                     {
-                        id: 'connect', title: 'Connecting to Data Sources',
+                        id: 'connect', title: 'தரவு மூலங்களுடன் இணைத்தல்',
                         content: `
-                        <p>Power BI can connect to 100+ data sources including Excel, SQL Server, SharePoint, APIs, and cloud databases.</p>
-                        <h3>Steps to Import Data</h3>
+                        <p>Excel, SQL Server, SharePoint, APIகள் மற்றும் கிளவுட் தரவுத்தளங்கள் உட்பட 100-க்கும் மேற்பட்ட தரவு மூலங்களுடன் Power BI இணைக்க முடியும்.</p>
+                        <h3>தரவை இறக்குமதி செய்வதற்கான படிகள்</h3>
                         <ol>
-                            <li>Click <strong>Home → Get Data</strong></li>
-                            <li>Choose source (Excel, CSV, SQL Server, etc.)</li>
-                            <li>Select tables/sheets to import</li>
-                            <li>Click <strong>Load</strong> or <strong>Transform Data</strong> (to clean first)</li>
+                            <li><strong>Home → Get Data</strong> என்பதைக் கிளிக் செய்யவும்</li>
+                            <li>மூலத்தைத் தேர்ந்தெடுக்கவும் (Excel, CSV, SQL Server போன்றவை)</li>
+                            <li>இறக்குமதி செய்ய வேண்டிய அட்டவணைகள்/தாள்களைத் தேர்ந்தெடுக்கவும்</li>
+                            <li><strong>Load</strong> அல்லது <strong>Transform Data</strong> (முதலில் சுத்தம் செய்ய) என்பதைக் கிளிக் செய்யவும்</li>
                         </ol>
-                        <div class="info-box"><strong>Power Query Editor</strong> opens when you click "Transform Data" — this is where you clean, reshape, and filter your data before loading.</div>
-                        <h3>Common Transformations</h3>
+                        <div class="info-box">நீங்கள் "Transform Data" என்பதைக் கிளிக் செய்யும் போது <strong>Power Query Editor</strong> திறக்கும் — தரவை ஏற்றுவதற்கு முன் சுத்தம் செய்ய, மறுவடிவமைக்க மற்றும் வடிகட்ட இதுவே இடம்.</div>
+                        <h3>பொதுவான மாற்றங்கள்</h3>
                         <ul>
-                            <li>Remove duplicates and null rows</li>
-                            <li>Change column data types</li>
-                            <li>Split / merge columns</li>
-                            <li>Filter rows by conditions</li>
-                            <li>Append or merge multiple tables</li>
+                            <li>நகல்கள் மற்றும் காலியான வரிசைகளை நீக்குதல்</li>
+                            <li>நெடுவரிசை தரவு வகைகளை மாற்றுதல்</li>
+                            <li>நெடுவரிசைகளைப் பிரித்தல் / இணைத்தல்</li>
+                            <li>நிபந்தனைகளின்படி வரிசைகளை வடிகட்டுதல்</li>
+                            <li>பல அட்டவணைகளைச் சேர்த்தல் அல்லது இணைத்தல்</li>
                         </ul>
                     `
                     },
                     {
-                        id: 'dax', title: 'DAX — Data Analysis Expressions',
+                        id: 'dax', title: 'DAX — தரவு பகுப்பாய்வு வெளிப்பாடுகள்',
                         content: `
-                        <p>DAX is the formula language used in Power BI to create custom calculations.</p>
+                        <p>DAX என்பது Power BI இல் தனிப்பயன் கணக்கீடுகளை உருவாக்கப் பயன்படுத்தப்படும் சூத்திர மொழியாகும்.</p>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">dax</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                             <pre><span class="cm">-- Calculated Column</span>
@@ -951,28 +951,28 @@ YTD Revenue =
                     `
                     },
                     {
-                        id: 'visuals', title: 'Building Visuals & Reports',
+                        id: 'visuals', title: 'காட்சிகள் மற்றும் அறிக்கைகளை உருவாக்குதல்',
                         content: `
-                        <p>Drag and drop fields onto the canvas to create visuals. Power BI auto-suggests the best chart type.</p>
-                        <h3>Common Visualizations</h3>
+                        <p>கேன்வாஸில் புலங்களை இழுத்து விடுவதன் மூலம் காட்சிகளை உருவாக்கலாம். சிறந்த விளக்கப்பட வகையை Power BI தானாகவே பரிந்துரைக்கும்.</p>
+                        <h3>பொதுவான காட்சிப்படுத்தல்கள்</h3>
                         <ul>
-                            <li>📊 <strong>Bar / Column Chart</strong> — Compare categories</li>
-                            <li>📈 <strong>Line Chart</strong> — Trends over time</li>
-                            <li>🥧 <strong>Pie / Donut Chart</strong> — Part of whole</li>
-                            <li>🗺 <strong>Map</strong> — Geographic data</li>
-                            <li>📋 <strong>Table / Matrix</strong> — Tabular data with totals</li>
-                            <li>🃏 <strong>Card</strong> — Single KPI number</li>
-                            <li>📉 <strong>Scatter Chart</strong> — Correlations</li>
+                            <li>📊 <strong>பார் / நெடுவரிசை விளக்கப்படம்</strong> — வகைகளை ஒப்பிடுதல்</li>
+                            <li>📈 <strong>கோட்டு வரைபடம்</strong> — காலப்போக்கில் போக்குகள்</li>
+                            <li>🥧 <strong>பை / டோனட் விளக்கப்படம்</strong> — முழுவதின் பகுதி</li>
+                            <li>🗺 <strong>வரைபடம்</strong> — புவியியல் தரவு</li>
+                            <li>📋 <strong>அட்டவணை / மேட்ரிக்ஸ்</strong> — மொத்தங்களுடன் கூடிய அட்டவணை தரவு</li>
+                            <li>🃏 <strong>அட்டை (Card)</strong> — ஒற்றை KPI எண்</li>
+                            <li>📉 <strong>சிதறல் வரைபடம்</strong> — தொடர்புகள்</li>
                         </ul>
-                        <h3>Slicers (Filters)</h3>
-                        <p>Slicers let users filter the entire report page interactively. Add a <strong>Slicer</strong> visual and bind it to a Date or Category column.</p>
-                        <div class="tip-box">🎯 <strong>Best Practice:</strong> Use a <strong>Date Table</strong> (mark as Date Table in modeling) for time intelligence functions like TOTALYTD, SAMEPERIODLASTYEAR to work correctly.</div>
+                        <h3>Slicers (வடிகட்டிகள்)</h3>
+                        <p>Slicers முழு அறிக்கை பக்கத்தையும் ஊடாடும் வகையில் வடிகட்ட பயனர்களை அனுமதிக்கின்றன. <strong>Slicer</strong> காட்சியைச் சேர்த்து, அதைத் தேதி அல்லது வகை நெடுவரிசையுடன் இணைக்கவும்.</p>
+                        <div class="tip-box">🎯 <strong>சிறந்த நடைமுறை:</strong> TOTALYTD, SAMEPERIODLASTYEAR போன்ற நேர நுண்ணறிவு செயல்பாடுகள் சரியாக வேலை செய்ய ஒரு <strong>தேதி அட்டவணையை (Date Table)</strong> பயன்படுத்தவும்.</div>
                     `
                     },
                     {
-                        id: 'relationships', title: 'Data Model & Relationships',
+                        id: 'relationships', title: 'தரவு மாதிரி (Data Model) & உறவுகள்',
                         content: `
-                        <p>A proper data model uses a <strong>Star Schema</strong> — one central Fact table linked to multiple Dimension tables.</p>
+                        <p>ஒரு சரியான தரவு மாதிரி <strong>ஸ்டார் ஸ்கீமா (Star Schema)</strong> ஐப் பயன்படுத்துகிறது — ஒன்றுக்கும் மேற்பட்ட பரிமாண அட்டவணைகளுடன் இணைக்கப்பட்ட ஒரு மைய உண்மை அட்டவணை.</p>
                         <div class="info-box">
                             <strong>Star Schema Example:</strong><br>
                             📦 <strong>Fact_Sales</strong> (OrderID, ProductID, CustomerID, DateID, Amount)<br>
@@ -980,12 +980,12 @@ YTD Revenue =
                             🧩 <strong>Dim_Customer</strong> (CustomerID, Name, Region)<br>
                             🧩 <strong>Dim_Date</strong> (DateID, Year, Month, Quarter)
                         </div>
-                        <h3>Creating Relationships</h3>
+                        <h3>உறவுகளை உருவாக்குதல்</h3>
                         <ol>
-                            <li>Go to <strong>Model View</strong></li>
-                            <li>Drag a key from one table to another</li>
-                            <li>Set cardinality: <strong>Many-to-One (recommended)</strong></li>
-                            <li>Cross-filter direction: <strong>Single</strong> (usually)</li>
+                            <li><strong>Model View</strong>-க்குச் செல்லவும்</li>
+                            <li>ஒரு அட்டவணையிலிருந்து மற்றொரு அட்டவணைக்கு ஒரு 'கீ' (key) ஐ இழுக்கவும்</li>
+                            <li>கார்டினாலிட்டியை அமைக்கவும்: <strong>Many-to-One (பரிந்துரைக்கப்படுகிறது)</strong></li>
+                            <li>கிராஸ்-ஃபில்டர் திசை: <strong>Single</strong> (பொதுவாக)</li>
                         </ol>
                     `
                     }
@@ -1001,7 +1001,7 @@ YTD Revenue =
             const topic = (params.get('topic') || 'python').toLowerCase();
             const data = TUTORIALS[topic] || TUTORIALS['python'];
 
-            document.title = data.title + ' — Tutorial';
+            document.title = data.title + ' — பயிற்சி';
 
             // Sidebar
             document.getElementById('sidebarIcon').textContent = data.icon;
@@ -1065,8 +1065,8 @@ YTD Revenue =
         function copyCode(btn) {
             const pre = btn.closest('.code-block').querySelector('pre');
             navigator.clipboard.writeText(pre.innerText).then(() => {
-                btn.textContent = '✓ Copied!';
-                setTimeout(() => btn.textContent = 'Copy', 2000);
+                btn.textContent = '✓ நகலெடுக்கப்பட்டது!';
+                setTimeout(() => btn.textContent = 'நகலெடு', 2000);
             });
         }
 
