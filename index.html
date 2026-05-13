@@ -341,11 +341,7 @@
         <div class="subtitle">Port 8001 · ngrok · Docker</div>
     </div>
 
-    <!-- Sandboxed Iframe (Applied Correctly) -->
-    <div class="iframe-container">
-        <iframe src="https://enchanting-swan-ccbc3b.netlify.app/" sandbox="allow-scripts allow-forms allow-popups">
-        </iframe>
-    </div>
+
 
     <!-- SDK Status -->
     <div class="sdk-status" id="sdkStatusCard">
@@ -419,8 +415,8 @@
         function setStatus(state, text) {
             const dot = document.getElementById('statusDot');
             const val = document.getElementById('statusValue');
-            if(dot) dot.className = 'dot ' + state;
-            if(val) val.textContent = text;
+            if (dot) dot.className = 'dot ' + state;
+            if (val) val.textContent = text;
         }
 
         function setField(id, value, highlight) {
@@ -437,7 +433,7 @@
 
         function log(type, msg) {
             const wrap = document.getElementById('logInner');
-            if(!wrap) return;
+            if (!wrap) return;
             const ts = new Date().toLocaleTimeString('en-US', { hour12: false });
             const div = document.createElement('div');
             div.className = 'log-entry ' + type;
@@ -446,9 +442,9 @@
             div.scrollIntoView({ block: 'nearest' });
         }
 
-        function clearLog() { 
+        function clearLog() {
             const wrap = document.getElementById('logInner');
-            if(wrap) wrap.innerHTML = ''; 
+            if (wrap) wrap.innerHTML = '';
         }
 
         function fillIdentity(r) {
@@ -475,7 +471,7 @@
 
                 ['resolveBtn', 'anonBtn', 'pvBtn'].forEach(id => {
                     const btn = document.getElementById(id);
-                    if(btn) btn.disabled = false;
+                    if (btn) btn.disabled = false;
                 });
 
                 setTimeout(doResolve, 600);
