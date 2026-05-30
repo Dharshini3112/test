@@ -32,6 +32,100 @@
             --sans: 'Inter', sans-serif;
         }
 
+        /* ── Auth Tabs ── */
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 12px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .auth-tab:hover {
+            color: var(--text);
+        }
+
+        .auth-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .auth-form {
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .auth-form.active {
+            display: flex;
+        }
+
+        .auth-form label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .auth-form input {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--text);
+            font-family: var(--sans);
+            font-size: 0.85rem;
+            outline: none;
+            transition: border .2s;
+            width: 100%;
+        }
+
+        .auth-form input:focus {
+            border-color: var(--accent);
+        }
+
+        .auth-form input::placeholder {
+            color: var(--muted);
+        }
+
+        .auth-form .btn {
+            margin-top: 4px;
+        }
+
+        .auth-status {
+            font-size: 0.78rem;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .auth-status.success {
+            display: block;
+            background: rgba(34, 197, 94, .12);
+            color: var(--green);
+            border: 1px solid rgba(34, 197, 94, .25);
+        }
+
+        .auth-status.error {
+            display: block;
+            background: rgba(239, 68, 68, .12);
+            color: var(--red);
+            border: 1px solid rgba(239, 68, 68, .25);
+        }
+
         body {
             background: var(--bg);
             color: var(--text);
@@ -352,6 +446,47 @@
         </div>
     </div>
 
+    <!-- Auth Card -->
+    <div class="identity-card" id="authCard">
+        <div class="card-title">Authentication</div>
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="loginTab" onclick="switchAuthTab('login')">Login</button>
+            <button class="auth-tab" id="signupTab" onclick="switchAuthTab('signup')">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <div class="auth-form active" id="loginForm">
+            <div>
+                <label>Email</label>
+                <input type="email" id="loginEmail" placeholder="you@example.com" />
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="••••••••" />
+            </div>
+            <button class="btn btn-primary" onclick="doLogin()">Sign In</button>
+            <div class="auth-status" id="loginStatus"></div>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div class="auth-form" id="signupForm">
+            <div>
+                <label>Name</label>
+                <input type="text" id="signupName" placeholder="John Doe" />
+            </div>
+            <div>
+                <label>Email</label>
+                <input type="email" id="signupEmail" placeholder="you@example.com" />
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" id="signupPassword" placeholder="••••••••" />
+            </div>
+            <button class="btn btn-primary" onclick="doSignup()">Create Account</button>
+            <div class="auth-status" id="signupStatus"></div>
+        </div>
+    </div>
+
     <!-- Identity Data -->
     <div class="identity-card">
         <div class="card-title">Identity Data</div>
@@ -502,6 +637,65 @@
             const id = Identity.getAnonymousId();
             setField('anon', id, true);
             log('info', `🪪 getAnonymousId() → ${id ?? 'null'}`);
+        }
+
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            document.getElementById(tab + 'Tab').classList.add('active');
+            document.getElementById(tab + 'Form').classList.add('active');
+            document.getElementById('loginStatus').style.display = 'none';
+            document.getElementById('signupStatus').style.display = 'none';
+        }
+
+        function showAuthStatus(form, type, msg) {
+            const el = document.getElementById(form + 'Status');
+            el.className = 'auth-status ' + type;
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+
+        async function doLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            if (!email || !password) {
+                showAuthStatus('login', 'error', 'Please fill in all fields');
+                return;
+            }
+            showAuthStatus('login', 'success', 'Signing in…');
+            log('info', `Signing in as ${email}`);
+            try {
+                const res = await Identity.login(email, password);
+                showAuthStatus('login', 'success', `Welcome, ${res.name || email}!`);
+                log('success', `Login successful — ${email}`);
+                if (res.anon_id) setField('anon', res.anon_id, true);
+                if (res.visitor_id) setField('visitor', res.visitor_id, true);
+            } catch (e) {
+                showAuthStatus('login', 'error', e.message || 'Login failed');
+                log('error', `Login failed: ${e.message}`);
+            }
+        }
+
+        async function doSignup() {
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value.trim();
+            if (!email || !password) {
+                showAuthStatus('signup', 'error', 'Please fill in all fields');
+                return;
+            }
+            showAuthStatus('signup', 'success', 'Creating account…');
+            log('info', `Signing up ${email}`);
+            try {
+                const res = await Identity.signup(email, password, { name });
+                showAuthStatus('signup', 'success', `Account created! Welcome, ${res.name || email}!`);
+                log('success', `Signup successful — ${email}`);
+                if (res.anon_id) setField('anon', res.anon_id, true);
+                if (res.visitor_id) setField('visitor', res.visitor_id, true);
+            } catch (e) {
+                showAuthStatus('signup', 'error', e.message || 'Signup failed');
+                log('error', `Signup failed: ${e.message}`);
+            }
         }
 
         async function doPageView() {
