@@ -655,6 +655,17 @@
             el.style.display = 'block';
         }
 
+        async function apiPost(path, data) {
+            const r = await fetch(API_URL + path, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+            });
+            if (!r.ok) {
+                const err = await r.json().catch(() => ({}));
+                throw new Error(err.message || `HTTP ${r.status}`);
+            }
+            return r.json();
+        }
+
         async function doLogin() {
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
@@ -665,11 +676,11 @@
             showAuthStatus('login', 'success', 'Signing in…');
             log('info', `Signing in as ${email}`);
             try {
-                const res = await Identity.login(email, password);
+                const res = await apiPost('/api/auth/login', { email, password });
+                const userId = res.user_id || res.id || email;
+                if (Identity.linkUser) await Identity.linkUser(userId, { email, name: res.name });
                 showAuthStatus('login', 'success', `Welcome, ${res.name || email}!`);
                 log('success', `Login successful — ${email}`);
-                if (res.anon_id) setField('anon', res.anon_id, true);
-                if (res.visitor_id) setField('visitor', res.visitor_id, true);
             } catch (e) {
                 showAuthStatus('login', 'error', e.message || 'Login failed');
                 log('error', `Login failed: ${e.message}`);
@@ -687,11 +698,11 @@
             showAuthStatus('signup', 'success', 'Creating account…');
             log('info', `Signing up ${email}`);
             try {
-                const res = await Identity.signup(email, password, { name });
+                const res = await apiPost('/api/auth/signup', { name, email, password });
+                const userId = res.user_id || res.id || email;
+                if (Identity.linkUser) await Identity.linkUser(userId, { email, name: res.name || name });
                 showAuthStatus('signup', 'success', `Account created! Welcome, ${res.name || email}!`);
                 log('success', `Signup successful — ${email}`);
-                if (res.anon_id) setField('anon', res.anon_id, true);
-                if (res.visitor_id) setField('visitor', res.visitor_id, true);
             } catch (e) {
                 showAuthStatus('signup', 'error', e.message || 'Signup failed');
                 log('error', `Signup failed: ${e.message}`);
