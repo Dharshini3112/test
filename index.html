@@ -655,17 +655,6 @@
             el.style.display = 'block';
         }
 
-        async function apiPost(path, data) {
-            const r = await fetch(API_URL + path, {
-                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
-            });
-            if (!r.ok) {
-                const err = await r.json().catch(() => ({}));
-                throw new Error(err.message || `HTTP ${r.status}`);
-            }
-            return r.json();
-        }
-
         async function doLogin() {
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
@@ -676,10 +665,8 @@
             showAuthStatus('login', 'success', 'Signing in…');
             log('info', `Signing in as ${email}`);
             try {
-                const res = await apiPost('/api/auth/login', { email, password });
-                const userId = res.user_id || res.id || email;
-                if (Identity.linkUser) await Identity.linkUser(userId, { email, name: res.name });
-                showAuthStatus('login', 'success', `Welcome, ${res.name || email}!`);
+                if (Identity.linkUser) await Identity.linkUser(email, { email, provider: 'login' });
+                showAuthStatus('login', 'success', `Welcome, ${email}!`);
                 log('success', `Login successful — ${email}`);
             } catch (e) {
                 showAuthStatus('login', 'error', e.message || 'Login failed');
@@ -698,10 +685,8 @@
             showAuthStatus('signup', 'success', 'Creating account…');
             log('info', `Signing up ${email}`);
             try {
-                const res = await apiPost('/api/auth/signup', { name, email, password });
-                const userId = res.user_id || res.id || email;
-                if (Identity.linkUser) await Identity.linkUser(userId, { email, name: res.name || name });
-                showAuthStatus('signup', 'success', `Account created! Welcome, ${res.name || email}!`);
+                if (Identity.linkUser) await Identity.linkUser(email, { email, name, provider: 'signup' });
+                showAuthStatus('signup', 'success', `Account created! Welcome, ${name || email}!`);
                 log('success', `Signup successful — ${email}`);
             } catch (e) {
                 showAuthStatus('signup', 'error', e.message || 'Signup failed');
