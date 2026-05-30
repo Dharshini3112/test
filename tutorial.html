@@ -427,6 +427,9 @@
             <a href="news.html" class="back-link">
                 ← பயிற்சிகளுக்குத் திரும்பு
             </a>
+            <a href="api-demo.html" class="back-link" style="margin-left: 16px;">
+                → API Demo
+            </a>
             <div id="tutorialContent"></div>
         </main>
     </div>
@@ -1080,6 +1083,9 @@ YTD Revenue =
                     apiUrl: 'https://choiceless-lakeesha-ichthyophagous.ngrok-free.dev',
                     debug: true
                 });
+                
+                // Track page view
+                Identity.trackPageView({ page_url: window.location.href });
             }
         } catch (e) { }
     </script>
