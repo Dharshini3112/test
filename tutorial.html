@@ -5,441 +5,318 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>பயிற்சி (Tutorial)</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&family=Consolas&display=swap" rel="stylesheet" />
     <style>
         :root {
-            --bg: #0b0d12;
-            --card: #10131b;
-            --border: #232b42;
-            --text: #e2e8f0;
-            --muted: #8b9bb4;
-            --accent: #4f72ff;
-            --green: #22c55e;
-            --orange: #f59e0b;
-            --red: #ef4444;
+            --w3-green: #04AA6D;
+            --w3-dark: #282A35;
+            --w3-light-grey: #F1F1F1;
+            --w3-dark-grey: #E7E9EB;
+            --text-main: #000000;
+            --text-muted: #555555;
+            --code-bg: #E7E9EB;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.7;
+            background: #ffffff;
+            color: var(--text-main);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Layout */
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 55px;
+            background-color: var(--w3-dark);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+
+        .top-nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 30px;
+            text-decoration: none;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .top-nav .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 17px 15px;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        .top-nav .nav-links a:hover {
+            background-color: var(--w3-green);
+        }
+
+        /* Layout Container */
         .layout {
             display: flex;
-            min-height: 100vh;
+            margin-top: 55px;
+            min-height: calc(100vh - 55px);
         }
 
-        /* Sidebar */
-        .sidebar {
-            width: 260px;
-            background: var(--card);
-            border-right: 1px solid var(--border);
-            padding: 30px 20px;
-            position: sticky;
-            top: 0;
-            height: 100vh;
+        /* Left Sidebar */
+        .left-sidebar {
+            width: 250px;
+            background: var(--w3-light-grey);
+            position: fixed;
+            height: calc(100vh - 55px);
             overflow-y: auto;
-            flex-shrink: 0;
+            padding-top: 20px;
+            padding-bottom: 50px;
         }
 
         .sidebar-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .sidebar-brand .icon {
-            font-size: 1.6rem;
-        }
-
-        .sidebar-brand .label {
-            font-weight: 700;
-            font-size: 1rem;
-            color: #fff;
-        }
-
-        .sidebar-brand .sub {
-            font-size: 0.75rem;
-            color: var(--muted);
+            padding: 0 16px 20px 16px;
+            margin-bottom: 10px;
         }
 
         .toc-title {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--muted);
-            font-weight: 600;
-            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 16px;
+            margin-top: 10px;
         }
 
-        .toc-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .toc-list a {
+        .toc-list { list-style: none; }
+        .toc-list li a {
             display: block;
-            padding: 7px 12px;
-            border-radius: 8px;
-            color: var(--muted);
+            padding: 6px 16px;
+            color: #000;
             text-decoration: none;
-            font-size: 0.88rem;
-            transition: all 0.15s;
+            font-size: 15px;
+        }
+        .toc-list li a:hover {
+            background-color: #cccccc;
+        }
+        .toc-list li a.active {
+            background-color: var(--w3-green);
+            color: white;
         }
 
-        .toc-list a:hover,
-        .toc-list a.active {
-            background: rgba(79, 114, 255, 0.12);
-            color: var(--accent);
-        }
-
-        .toc-list a.sub-item {
-            padding-left: 24px;
-            font-size: 0.82rem;
-        }
-
-        /* Main content */
-        .main {
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            margin-right: 300px;
+            padding: 30px 40px;
             flex: 1;
-            padding: 50px 60px;
-            max-width: 900px;
-        }
-
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.88rem;
-            margin-bottom: 40px;
-            transition: color 0.2s;
-        }
-
-        .back-link:hover {
-            color: var(--text);
-        }
-
-        .tutorial-badge {
-            display: inline-block;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 16px;
+            background: #ffffff;
         }
 
         .tutorial-title {
-            font-size: 2.4rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            margin-bottom: 12px;
-            color: #fff;
-            line-height: 1.2;
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            font-weight: 400;
         }
 
         .tutorial-meta {
-            color: var(--muted);
-            font-size: 0.9rem;
-            margin-bottom: 40px;
             display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+            gap: 15px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
         }
 
         .tutorial-meta span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            background: var(--w3-light-grey);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
         }
 
-        .divider {
+        .section { margin-bottom: 40px; scroll-margin-top: 70px; }
+        .section h2 { font-size: 32px; margin-bottom: 15px; font-weight: 400; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+        .section h3 { font-size: 24px; margin: 25px 0 10px 0; font-weight: 400; }
+        .section p { font-size: 16px; margin-bottom: 15px; }
+        .section ul, .section ol { margin-left: 20px; margin-bottom: 15px; line-height: 1.6; }
+        
+        .divider { border: 0; border-top: 1px solid #eee; margin: 40px 0; }
+
+        /* Next/Prev Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .btn-green {
+            background-color: var(--w3-green);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
             border: none;
-            border-top: 1px solid var(--border);
-            margin: 40px 0;
+            cursor: pointer;
         }
+        .btn-green:hover { background-color: #03905c; }
 
-        /* Content sections */
-        .section {
-            margin-bottom: 50px;
-            scroll-margin-top: 30px;
+        .btn-dark {
+            background-color: var(--w3-dark);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
         }
+        .btn-dark:hover { background-color: #000000; }
 
-        .section h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section h2 .num {
-            width: 30px;
-            height: 30px;
-            background: rgba(79, 114, 255, 0.15);
-            border: 1px solid rgba(79, 114, 255, 0.3);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            color: var(--accent);
-            flex-shrink: 0;
-        }
-
-        .section h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #d1d9e6;
-            margin: 20px 0 10px 0;
-        }
-
-        .section p {
-            color: var(--muted);
-            margin-bottom: 14px;
-            line-height: 1.75;
-        }
-
-        .section ul,
-        .section ol {
-            color: var(--muted);
-            padding-left: 22px;
-            margin-bottom: 14px;
-            line-height: 2;
-        }
-
-        .section ul li::marker {
-            color: var(--accent);
-        }
-
-        /* Code block */
+        /* Code Block */
         .code-block {
-            background: #0d1117;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            margin: 16px 0;
+            background-color: var(--w3-light-grey);
+            border-left: 4px solid var(--w3-green);
+            margin: 20px 0;
+            padding: 16px;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .code-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 10px 16px;
-            background: #161b22;
-            border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
         }
 
-        .code-lang {
-            font-size: 0.78rem;
-            color: var(--muted);
-            font-family: 'Fira Code', monospace;
-            font-weight: 500;
-        }
-
+        .code-lang { font-weight: bold; color: var(--text-muted); font-size: 14px; text-transform: uppercase; }
+        
         .copy-btn {
-            font-size: 0.75rem;
-            color: var(--muted);
-            background: none;
+            background: var(--w3-dark);
+            color: white;
             border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
             cursor: pointer;
-            padding: 3px 8px;
-            border-radius: 5px;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
+            font-size: 12px;
         }
-
-        .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text);
-        }
+        .copy-btn:hover { background: #000; }
 
         .code-block pre {
-            padding: 20px;
+            font-family: Consolas, "courier new", monospace;
+            font-size: 15px;
             overflow-x: auto;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.88rem;
-            line-height: 1.7;
-            color: #e6edf3;
+            color: #000;
         }
 
-        /* Syntax highlight colors */
-        .kw {
-            color: #ff7b72;
+        /* Syntax colors (light theme) */
+        .kw { color: mediumblue; font-weight: bold; }
+        .fn { color: #900; } 
+        .str { color: brown; }
+        .num { color: red; }
+        .cm { color: green; }
+        .cl { color: teal; }
+        .var { color: black; }
+
+        /* Info boxes */
+        .info-box, .tip-box {
+            background-color: #ffffcc;
+            border-left: 6px solid #ffeb3b;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 16px;
         }
-
-        /* keywords */
-        .fn {
-            color: #d2a8ff;
-        }
-
-        /* functions */
-        .str {
-            color: #a5d6ff;
-        }
-
-        /* strings */
-        .num {
-            color: #f2cc60;
-        }
-
-        /* numbers */
-        .cm {
-            color: #6e7681;
-            font-style: italic;
-        }
-
-        /* comments */
-        .cl {
-            color: #ffa657;
-        }
-
-        /* class names */
-        .var {
-            color: #e6edf3;
-        }
-
-        /* variables */
-
-        /* Info box */
-        .info-box {
-            background: rgba(79, 114, 255, 0.08);
-            border: 1px solid rgba(79, 114, 255, 0.25);
-            border-radius: 10px;
-            padding: 16px 20px;
-            margin: 16px 0;
-            font-size: 0.9rem;
-            color: #a5b4fc;
-        }
-
-        .info-box strong {
-            color: var(--accent);
-        }
-
         .tip-box {
-            background: rgba(34, 197, 94, 0.08);
-            border: 1px solid rgba(34, 197, 94, 0.25);
-            border-radius: 10px;
-            padding: 16px 20px;
-            margin: 16px 0;
-            font-size: 0.9rem;
-            color: #86efac;
+            background-color: #ddffdd;
+            border-left: 6px solid var(--w3-green);
         }
 
-        /* Progress indicator */
-        .progress-bar {
+        /* Right Sidebar (Ads) */
+        .right-ad {
+            width: 300px;
+            background: #ffffff;
             position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: var(--accent);
-            width: 0%;
-            transition: width 0.1s;
-            z-index: 100;
+            right: 0;
+            height: calc(100vh - 55px);
+            overflow-y: auto;
+            padding: 20px;
+            border-left: 1px solid #ddd;
+        }
+
+        .ad-container {
+            background: #f1f1f1;
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .ad-container img {
+            max-width: 100%;
+            height: auto;
         }
 
         /* Responsive */
+        @media (max-width: 992px) {
+            .right-ad { display: none; }
+            .main-content { margin-right: 0; }
+        }
         @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
-
-            .main {
-                padding: 30px 20px;
-            }
-
-            .tutorial-title {
-                font-size: 1.8rem;
-            }
+            .left-sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 20px; }
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section {
-            animation: fadeIn 0.4s ease-out both;
-        }
-
-        .section:nth-child(2) {
-            animation-delay: 0.05s;
-        }
-
-        .section:nth-child(3) {
-            animation-delay: 0.1s;
-        }
-
-        .section:nth-child(4) {
-            animation-delay: 0.15s;
-        }
-
-        .section:nth-child(5) {
-            animation-delay: 0.2s;
-        }
     </style>
 </head>
 
 <body>
-    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <a href="index.html" class="logo">TutorialsSite</a>
+        <div class="nav-links">
+            <a href="news.html">News Page</a>
+            <a href="api-demo.html">API Demo</a>
+        </div>
+    </nav>
 
     <div class="layout">
-        <!-- Sidebar TOC (populated by JS) -->
-        <aside class="sidebar" id="sidebar">
+        <!-- Left Sidebar TOC -->
+        <aside class="left-sidebar" id="sidebar">
             <div class="sidebar-brand">
-                <span class="icon" id="sidebarIcon">📘</span>
-                <div>
-                    <div class="label" id="sidebarLabel">பயிற்சி</div>
-                    <div class="sub">செய்து கற்றுக் கொள்ளுங்கள்</div>
-                </div>
+                <h2 id="sidebarLabel" style="font-size:24px; font-weight:400; margin-top:10px;">பயிற்சி</h2>
             </div>
             <div class="toc-title">பொருளடக்கம்</div>
             <ul class="toc-list" id="tocList"></ul>
-
-            <div style="margin-top: 40px;">
-                <div class="toc-title">விளம்பரம்</div>
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center;">
-                    <img src="https://via.placeholder.com/200x200?text=Ad+Space" alt="Ad" style="max-width: 100%; border-radius: 4px; margin-bottom: 8px;">
-                    <p style="font-size: 0.75rem; color: var(--muted); margin: 0;">Buy premium courses now!</p>
-                </div>
-            </div>
         </aside>
 
         <!-- Main Content -->
-        <main class="main" id="mainContent">
-            <a href="news.html" class="back-link">
-                ← பயிற்சிகளுக்குத் திரும்பு
-            </a>
-            <a href="api-demo.html" class="back-link" style="margin-left: 16px;">
-                → API Demo
-            </a>
+        <main class="main-content" id="mainContent">
             <div id="tutorialContent"></div>
+            
+            <div class="nav-buttons">
+                <button class="btn-dark" onclick="window.scrollTo(0,0)">❮ Previous</button>
+                <button class="btn-green" onclick="window.scrollTo(0,0)">Next ❯</button>
+            </div>
         </main>
+
+        <!-- Right Sidebar Ads -->
+        <aside class="right-ad">
+            <h3 style="font-size: 16px; font-weight: normal; color: #777; margin-bottom: 10px; text-transform: uppercase; text-align: center;">விளம்பரம் (ADVERTISEMENT)</h3>
+            <a href="https://products-site-rho.vercel.app/" target="_blank" rel="noopener" class="ad-container" style="display:block; text-decoration:none; cursor:pointer;">
+                <img src="https://via.placeholder.com/250x600?text=Wide+Skyscraper+Ad" alt="Ad">
+                <p style="font-size: 12px; color: #666; margin-top: 10px;">Support our tutorials!</p>
+            </a>
+            <a href="https://products-site-rho.vercel.app/" target="_blank" rel="noopener" class="ad-container" style="display:block; text-decoration:none; cursor:pointer;">
+                <img src="https://via.placeholder.com/250x250?text=Square+Ad" alt="Ad">
+            </a>
+        </aside>
     </div>
 
     <script src="./identity.min.js"></script>
@@ -1015,7 +892,6 @@ YTD Revenue =
             document.title = data.title + ' — பயிற்சி';
 
             // Sidebar
-            document.getElementById('sidebarIcon').textContent = data.icon;
             document.getElementById('sidebarLabel').textContent = data.badge.text;
 
             const tocList = document.getElementById('tocList');
@@ -1026,19 +902,17 @@ YTD Revenue =
             });
 
             // Main content
-            const badge = `<span class="tutorial-badge" style="color:${data.badge.color};background:${data.badge.bg};">${data.icon} ${data.badge.text}</span>`;
             const metaHtml = data.meta.map(m => `<span>${m}</span>`).join('');
 
             let sectionsHtml = data.sections.map((s, i) => `
             <div class="section" id="${s.id}">
-                <h2><span class="num">${i + 1}</span>${s.title}</h2>
+                <h2>${i + 1}. ${s.title}</h2>
                 ${s.content}
             </div>
             ${i < data.sections.length - 1 ? '<hr class="divider">' : ''}
         `).join('');
 
             document.getElementById('tutorialContent').innerHTML = `
-            ${badge}
             <h1 class="tutorial-title">${data.title}</h1>
             <div class="tutorial-meta">${metaHtml}</div>
             <hr class="divider">
@@ -1050,16 +924,9 @@ YTD Revenue =
         }
 
         function setupScrollSpy(sections) {
-            const bar = document.getElementById('progressBar');
             const links = document.querySelectorAll('.toc-list a');
 
             window.addEventListener('scroll', () => {
-                // Progress bar
-                const scrolled = window.scrollY;
-                const total = document.body.scrollHeight - window.innerHeight;
-                bar.style.width = (scrolled / total * 100) + '%';
-
-                // Active section highlight
                 let current = '';
                 sections.forEach(s => {
                     const el = document.getElementById(s.id);
@@ -1076,8 +943,8 @@ YTD Revenue =
         function copyCode(btn) {
             const pre = btn.closest('.code-block').querySelector('pre');
             navigator.clipboard.writeText(pre.innerText).then(() => {
-                btn.textContent = '✓ நகலெடுக்கப்பட்டது!';
-                setTimeout(() => btn.textContent = 'நகலெடு', 2000);
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 2000);
             });
         }
 
@@ -1098,5 +965,4 @@ YTD Revenue =
         } catch (e) { }
     </script>
 </body>
-
 </html>
