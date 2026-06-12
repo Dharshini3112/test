@@ -504,6 +504,10 @@
             <span class="field-val" id="val-visitor">— not resolved yet —</span>
         </div>
         <div class="identity-row">
+            <span class="field-name">session_id</span>
+            <span class="field-val" id="val-session">— not resolved yet —</span>
+        </div>
+        <div class="identity-row">
             <span class="field-name">matched_via</span>
             <span class="field-val" id="val-match">—</span>
         </div>
@@ -588,6 +592,7 @@
         function fillIdentity(r) {
             setField('anon', r.anon_id ?? r.anonymous_id ?? null, true);
             setField('visitor', r.visitor_id ?? null, true);
+            setField('session', r.session_id ?? null, true);
             setField('match', r.matched_via ?? null, false);
             setField('isnew', r.is_new != null ? (r.is_new ? '✅ Yes (new)' : '❌ No (returning)') : null, false);
             setField('conf', r.confidence != null ? Math.round(r.confidence * 100) + '%' : null, false);
@@ -627,7 +632,7 @@
             try {
                 let r = await Identity.resolve('sync');
                 fillIdentity(r);
-                log('success', `✅ Resolved — anon_id: ${r.anon_id ?? r.anonymous_id ?? 'null'} | visitor_id: ${r.visitor_id ?? 'null'}`);
+                log('success', `✅ Resolved — anon_id: ${r.anon_id ?? r.anonymous_id ?? 'null'} | visitor_id: ${r.visitor_id ?? 'null'} | session_id: ${r.session_id ?? 'null'}`);
             } catch (e) {
                 log('error', `❌ Resolve failed [${e.name}]: ${e.message}`);
                 console.error('[doResolve error]', e);
