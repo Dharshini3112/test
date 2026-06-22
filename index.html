@@ -265,14 +265,14 @@
                 const card = document.createElement('a');
                 card.href = 'article.html?id=' + news.id;
                 card.className = 'news-card';
-                card.innerHTML = \`
-                    <img src="\${news.image}" alt="News Image">
+                card.innerHTML = `
+                    <img src="${news.image}" alt="News Image">
                     <div class="news-card-body">
-                        <span class="news-category">\${news.category}</span>
-                        <h2 class="news-title">\${news.title}</h2>
-                        <p class="news-summary">\${news.summary}</p>
+                        <span class="news-category">${news.category}</span>
+                        <h2 class="news-title">${news.title}</h2>
+                        <p class="news-summary">${news.summary}</p>
                     </div>
-                \`;
+                `;
                 container.appendChild(card);
             });
         }
@@ -286,7 +286,7 @@
                 p.style.fontSize = '14px';
                 p.style.borderBottom = '1px solid #eee';
                 p.style.paddingBottom = '5px';
-                p.innerHTML = \`<a href="article.html?id=\${news.id}" style="color:var(--text-main); text-decoration:none;">\${news.title}</a>\`;
+                p.innerHTML = `<a href="article.html?id=${news.id}" style="color:var(--text-main); text-decoration:none;">${news.title}</a>`;
                 container.appendChild(p);
             });
         }

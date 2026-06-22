@@ -146,28 +146,28 @@
 
             if (article) {
                 document.title = article.title + " | NDTV News";
-                container.innerHTML = \`
+                container.innerHTML = `
                     <a href="index.html" class="back-link">← முகப்பு (Back to Home)</a>
                     <br>
-                    <span class="article-category">\${article.category}</span>
-                    <h1 class="article-title">\${article.title}</h1>
+                    <span class="article-category">${article.category}</span>
+                    <h1 class="article-title">${article.title}</h1>
                     <div class="article-meta">
-                        வெளியிடப்பட்டது: \${formatDate(article.date)}
+                        வெளியிடப்பட்டது: ${formatDate(article.date)}
                     </div>
-                    <img src="\${article.image}" alt="Article Image" class="article-image">
+                    <img src="${article.image}" alt="Article Image" class="article-image">
                     <div class="article-content">
-                        \${article.content}
+                        ${article.content}
                     </div>
                     <div class="tags">
-                        \${article.tags.map(tag => \`<span class="tag">#\${tag}</span>\`).join('')}
+                        ${article.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
                     </div>
-                \`;
+                `;
             } else {
-                container.innerHTML = \`
+                container.innerHTML = `
                     <a href="index.html" class="back-link">← முகப்பு (Back to Home)</a>
                     <h2>Article not found!</h2>
                     <p>மன்னிக்கவும், நீங்கள் தேடும் செய்தி கிடைக்கவில்லை.</p>
-                \`;
+                `;
             }
 
             // Identity SDK
