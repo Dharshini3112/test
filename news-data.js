@@ -73,3 +73,16 @@ function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     return new Date(dateString).toLocaleDateString('ta-IN', options);
 }
+
+// Identity SDK initialization
+try {
+    if (typeof Identity !== 'undefined') {
+        Identity.init('testsite', 'ArxY8ydnJZGo_wXq7Fzryya1x0aHE90N7ReIeReYeB0', {
+            apiUrl: 'https://choiceless-lakeesha-ichthyophagous.ngrok-free.dev',
+            debug: true,
+            defaultMode: 'async',
+        });
+    }
+} catch (e) {
+    console.error('Identity SDK initialization failed:', e);
+}

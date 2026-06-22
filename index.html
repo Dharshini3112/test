@@ -318,11 +318,13 @@
                 if (typeof Identity !== 'undefined') {
                     Identity.init('testsite', 'ArxY8ydnJZGo_wXq7Fzryya1x0aHE90N7ReIeReYeB0', {
                         apiUrl: 'https://choiceless-lakeesha-ichthyophagous.ngrok-free.dev',
-                        debug: true
+                        debug: true,
+                        defaultMode: 'async',
                     });
-                    Identity.trackPageView({ page_url: window.location.href });
                 }
-            } catch (e) { console.error(e); }
+            } catch (e) {
+                console.error('Identity SDK initialization failed:', e);
+            }
         });
     </script>
 </body>
