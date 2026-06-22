@@ -1,958 +1,371 @@
 <!DOCTYPE html>
 <html lang="ta">
-
 <head>
     <script defer src="https://reignat.com/tracker.js" data-site="80439c59-7400-411d-ae93-c7446d217403"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>பயிற்சி (Tutorial)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&family=Consolas&display=swap" rel="stylesheet" />
+    <title>NDTV News - Tamil</title>
     <style>
         :root {
-            --w3-green: #04AA6D;
-            --w3-dark: #282A35;
-            --w3-light-grey: #F1F1F1;
-            --w3-dark-grey: #E7E9EB;
-            --text-main: #000000;
-            --text-muted: #555555;
-            --code-bg: #E7E9EB;
+            --ndtv-red: #e31212;
+            --ndtv-dark: #222222;
+            --ndtv-grey: #f0f0f0;
+            --text-main: #333333;
+            --text-muted: #666666;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
-            background: #ffffff;
-            color: var(--text-main);
             font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--ndtv-grey);
+            color: var(--text-main);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* Top Navigation */
-        .top-nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 55px;
-            background-color: var(--w3-dark);
+        /* Top Navigation Bar */
+        .top-bar {
+            background: var(--ndtv-dark);
             color: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 20px;
+            font-size: 13px;
+        }
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+        .top-bar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header Section */
+        header {
+            background: white;
+            padding: 15px 20px;
             display: flex;
             align-items: center;
-            padding: 0 20px;
-            z-index: 1000;
+            border-bottom: 2px solid var(--ndtv-red);
         }
-
-        .top-nav .logo {
+        .logo {
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            background-color: var(--ndtv-red);
+            padding: 5px 15px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            border-radius: 3px;
+            margin-right: 20px;
+        }
+        .header-title {
             font-size: 24px;
             font-weight: bold;
-            margin-right: 30px;
-            text-decoration: none;
-            color: white;
-            letter-spacing: 1px;
+            color: var(--ndtv-dark);
         }
 
-        .top-nav .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 17px 15px;
-            font-size: 16px;
-            display: inline-block;
-        }
-
-        .top-nav .nav-links a:hover {
-            background-color: var(--w3-green);
-        }
-
-        /* Layout Container */
-        .layout {
+        /* Main Navigation */
+        nav {
+            background-color: var(--ndtv-dark);
             display: flex;
-            margin-top: 55px;
-            min-height: calc(100vh - 55px);
+            overflow-x: auto;
         }
-
-        /* Left Sidebar */
-        .left-sidebar {
-            width: 250px;
-            background: var(--w3-light-grey);
-            position: fixed;
-            height: calc(100vh - 55px);
-            overflow-y: auto;
-            padding-top: 20px;
-            padding-bottom: 50px;
-        }
-
-        .sidebar-brand {
-            padding: 0 16px 20px 16px;
-            margin-bottom: 10px;
-        }
-
-        .toc-title {
-            font-size: 18px;
-            font-weight: bold;
-            padding: 10px 16px;
-            margin-top: 10px;
-        }
-
-        .toc-list { list-style: none; }
-        .toc-list li a {
-            display: block;
-            padding: 6px 16px;
-            color: #000;
+        nav a {
+            color: white;
             text-decoration: none;
+            padding: 12px 20px;
             font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            white-space: nowrap;
         }
-        .toc-list li a:hover {
-            background-color: #cccccc;
+        nav a:hover {
+            background-color: var(--ndtv-red);
         }
-        .toc-list li a.active {
-            background-color: var(--w3-green);
-            color: white;
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-left: 250px;
-            margin-right: 300px;
-            padding: 30px 40px;
-            flex: 1;
-            background: #ffffff;
+        nav a.active {
+            background-color: var(--ndtv-red);
         }
 
-        .tutorial-title {
-            font-size: 40px;
-            margin-bottom: 20px;
-            color: var(--text-main);
-            font-weight: 400;
-        }
-
-        .tutorial-meta {
+        /* Breaking News Ticker */
+        .breaking-news {
+            background-color: white;
             display: flex;
-            gap: 15px;
-            color: var(--text-muted);
-            margin-bottom: 30px;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
         }
-
-        .tutorial-meta span {
-            background: var(--w3-light-grey);
-            padding: 4px 8px;
-            border-radius: 4px;
+        .breaking-badge {
+            background-color: var(--ndtv-red);
+            color: white;
+            padding: 4px 10px;
+            font-weight: bold;
             font-size: 14px;
+            margin-right: 15px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+        .breaking-text {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--ndtv-dark);
+            overflow: hidden;
+            white-space: nowrap;
         }
 
-        .section { margin-bottom: 40px; scroll-margin-top: 70px; }
-        .section h2 { font-size: 32px; margin-bottom: 15px; font-weight: 400; padding-bottom: 10px; border-bottom: 1px solid #eee; }
-        .section h3 { font-size: 24px; margin: 25px 0 10px 0; font-weight: 400; }
-        .section p { font-size: 16px; margin-bottom: 15px; }
-        .section ul, .section ol { margin-left: 20px; margin-bottom: 15px; line-height: 1.6; }
-        
-        .divider { border: 0; border-top: 1px solid #eee; margin: 40px 0; }
-
-        /* Next/Prev Buttons */
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
+        /* Content Layout */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            padding: 0 20px;
         }
 
-        .btn-green {
-            background-color: var(--w3-green);
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
+        /* Main Story */
+        .main-story {
+            background: white;
             border-radius: 5px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-green:hover { background-color: #03905c; }
-
-        .btn-dark {
-            background-color: var(--w3-dark);
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-dark:hover { background-color: #000000; }
-
-        /* Code Block */
-        .code-block {
-            background-color: var(--w3-light-grey);
-            border-left: 4px solid var(--w3-green);
-            margin: 20px 0;
-            padding: 16px;
-            position: relative;
+            overflow: hidden;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
+        .main-story img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
         }
-
-        .code-lang { font-weight: bold; color: var(--text-muted); font-size: 14px; text-transform: uppercase; }
-        
-        .copy-btn {
-            background: var(--w3-dark);
-            color: white;
-            border: none;
-            padding: 4px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .copy-btn:hover { background: #000; }
-
-        .code-block pre {
-            font-family: Consolas, "courier new", monospace;
-            font-size: 15px;
-            overflow-x: auto;
-            color: #000;
-        }
-
-        /* Syntax colors (light theme) */
-        .kw { color: mediumblue; font-weight: bold; }
-        .fn { color: #900; } 
-        .str { color: brown; }
-        .num { color: red; }
-        .cm { color: green; }
-        .cl { color: teal; }
-        .var { color: black; }
-
-        /* Info boxes */
-        .info-box, .tip-box {
-            background-color: #ffffcc;
-            border-left: 6px solid #ffeb3b;
-            padding: 15px;
-            margin: 20px 0;
-            font-size: 16px;
-        }
-        .tip-box {
-            background-color: #ddffdd;
-            border-left: 6px solid var(--w3-green);
-        }
-
-        /* Right Sidebar (Ads) */
-        .right-ad {
-            width: 300px;
-            background: #ffffff;
-            position: fixed;
-            right: 0;
-            height: calc(100vh - 55px);
-            overflow-y: auto;
+        .main-story-content {
             padding: 20px;
-            border-left: 1px solid #ddd;
+        }
+        .main-story h1 {
+            font-size: 32px;
+            color: var(--ndtv-dark);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        .main-story p {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+        .read-more {
+            display: inline-block;
+            background: var(--ndtv-red);
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .read-more:hover {
+            background: #cc0000;
         }
 
-        .ad-container {
-            background: #f1f1f1;
-            border: 1px solid #ccc;
-            text-align: center;
-            padding: 10px;
+        /* Side Stories List */
+        .side-stories {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .story-card {
+            background: white;
+            border-radius: 5px;
+            display: flex;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .story-card:hover {
+            transform: translateY(-2px);
+        }
+        .story-card img {
+            width: 120px;
+            height: 100px;
+            object-fit: cover;
+        }
+        .story-card-content {
+            padding: 15px;
+            flex: 1;
+        }
+        .story-card-content h3 {
+            font-size: 16px;
+            color: var(--ndtv-dark);
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        .story-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* More News Grid */
+        .more-news {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+        }
+        .section-title {
+            font-size: 24px;
+            border-bottom: 2px solid var(--ndtv-red);
+            padding-bottom: 5px;
             margin-bottom: 20px;
+            color: var(--ndtv-dark);
         }
-        
-        .ad-container img {
-            max-width: 100%;
-            height: auto;
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .grid-card {
+            background: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .grid-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .grid-card-content {
+            padding: 15px;
+        }
+        .grid-card-content h4 {
+            font-size: 16px;
+            color: var(--ndtv-dark);
+            margin-bottom: 8px;
         }
 
-        /* Responsive */
-        @media (max-width: 992px) {
-            .right-ad { display: none; }
-            .main-content { margin-right: 0; }
-        }
         @media (max-width: 768px) {
-            .left-sidebar { display: none; }
-            .main-content { margin-left: 0; padding: 20px; }
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .main-story img {
+                height: 250px;
+            }
         }
-
     </style>
 </head>
-
 <body>
 
-    <!-- Top Navigation -->
-    <nav class="top-nav">
-        <a href="index.html" class="logo">TutorialsSite</a>
-        <div class="nav-links">
-            <a href="news.html">News Page</a>
+    <!-- Top Links to other pages -->
+    <div class="top-bar">
+        <div>NDTV தமிழ்</div>
+        <div>
+            <a href="index.html">Main Site</a>
             <a href="api-demo.html">API Demo</a>
         </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">NDTV</a>
+        <div class="header-title">செய்திகள் (Tamil News)</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="active">சமீபத்தியவை (LATEST)</a>
+        <a href="#">இந்தியா (INDIA)</a>
+        <a href="#">தமிழ்நாடு (TAMIL NADU)</a>
+        <a href="#">உலகம் (WORLD)</a>
+        <a href="#">விளையாட்டு (SPORTS)</a>
+        <a href="#">சினிமா (MOVIES)</a>
+        <a href="#">தொழில்நுட்பம் (TECH)</a>
     </nav>
 
-    <div class="layout">
-        <!-- Left Sidebar TOC -->
-        <aside class="left-sidebar" id="sidebar">
-            <div class="sidebar-brand">
-                <h2 id="sidebarLabel" style="font-size:24px; font-weight:400; margin-top:10px;">பயிற்சி</h2>
-            </div>
-            <div class="toc-title">பொருளடக்கம்</div>
-            <ul class="toc-list" id="tocList"></ul>
-        </aside>
+    <!-- Breaking News -->
+    <div class="breaking-news">
+        <div class="breaking-badge">BREAKING</div>
+        <marquee class="breaking-text" scrollamount="6">
+            சென்னையில் கனமழை: பள்ளிகளுக்கு விடுமுறை அறிவிப்பு | இஸ்ரோவின் புதிய செயற்கைக்கோள் வெற்றி | உலகக் கோப்பை கிரிக்கெட்: இந்திய அணி அபார வெற்றி
+        </marquee>
+    </div>
 
-        <!-- Main Content -->
-        <main class="main-content" id="mainContent">
-            <div id="tutorialContent"></div>
-            
-            <div class="nav-buttons">
-                <button class="btn-dark" onclick="window.scrollTo(0,0)">❮ Previous</button>
-                <button class="btn-green" onclick="window.scrollTo(0,0)">Next ❯</button>
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Left: Main Story -->
+        <div class="main-story">
+            <img src="https://images.unsplash.com/photo-1590424744257-fdb03ed78ee0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Main News Image">
+            <div class="main-story-content">
+                <h1>சென்னையில் புதிய ஐடி காரிடார் திறப்பு: 50,000 பேருக்கு வேலைவாய்ப்பு</h1>
+                <p>சென்னையின் புறநகர்ப் பகுதியில் அதிநவீன வசதிகளுடன் கூடிய புதிய தகவல் தொழில்நுட்பப் பூங்கா இன்று முதலமைச்சரால் திறந்து வைக்கப்பட்டது. இதன் மூலம் அடுத்த இரண்டு ஆண்டுகளில் 50,000 இளைஞர்களுக்கு வேலைவாய்ப்பு கிடைக்கும் என எதிர்பார்க்கப்படுகிறது.</p>
+                <a href="#" class="read-more">முழுமையாக படிக்க</a>
             </div>
-        </main>
+        </div>
 
-        <!-- Right Sidebar Ads -->
-        <aside class="right-ad">
-            <h3 style="font-size: 16px; font-weight: normal; color: #777; margin-bottom: 10px; text-transform: uppercase; text-align: center;">விளம்பரம் (ADVERTISEMENT)</h3>
-            <a href="https://products-site-rho.vercel.app/" target="_blank" rel="noopener" class="ad-container" style="display:block; text-decoration:none; cursor:pointer;">
-                <img src="https://via.placeholder.com/250x600?text=Wide+Skyscraper+Ad" alt="Ad">
-                <p style="font-size: 12px; color: #666; margin-top: 10px;">Support our tutorials!</p>
-            </a>
-            <a href="https://products-site-rho.vercel.app/" target="_blank" rel="noopener" class="ad-container" style="display:block; text-decoration:none; cursor:pointer;">
-                <img src="https://via.placeholder.com/250x250?text=Square+Ad" alt="Ad">
-            </a>
-        </aside>
+        <!-- Right: Side Stories -->
+        <div class="side-stories">
+            <div class="story-card">
+                <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Sports">
+                <div class="story-card-content">
+                    <h3>உலகக் கோப்பை தொடர்: இறுதிப் போட்டிக்கு முன்னேறியது இந்தியா</h3>
+                    <div class="story-time">1 மணி நேரத்திற்கு முன்</div>
+                </div>
+            </div>
+            <div class="story-card">
+                <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Economy">
+                <div class="story-card-content">
+                    <h3>பொருளாதாரம்: நடப்பு நிதியாண்டில் ஜிடிபி வளர்ச்சி 7.2% ஆக உயர்வு</h3>
+                    <div class="story-time">3 மணி நேரத்திற்கு முன்</div>
+                </div>
+            </div>
+            <div class="story-card">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Space">
+                <div class="story-card-content">
+                    <h3>இஸ்ரோ சாதனை: புதிய தகவல் தொடர்பு செயற்கைக்கோள் வெற்றிகரமாக ஏவப்பட்டது</h3>
+                    <div class="story-time">4 மணி நேரத்திற்கு முன்</div>
+                </div>
+            </div>
+            <div class="story-card">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Tech">
+                <div class="story-card-content">
+                    <h3>செயற்கை நுண்ணறிவு (AI) மூலம் மருத்துவத் துறையில் புதிய புரட்சி</h3>
+                    <div class="story-time">5 மணி நேரத்திற்கு முன்</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom: More News -->
+        <div class="more-news">
+            <h2 class="section-title">மேலும் செய்திகள் (More News)</h2>
+            <div class="news-grid">
+                <div class="grid-card">
+                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Finance">
+                    <div class="grid-card-content">
+                        <h4>தங்கம் விலை சவரனுக்கு ரூ.200 குறைவு: இல்லத்தரசிகள் மகிழ்ச்சி</h4>
+                    </div>
+                </div>
+                <div class="grid-card">
+                    <img src="https://images.unsplash.com/photo-1498837167922-41c46b66c07a?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Health">
+                    <div class="grid-card-content">
+                        <h4>பருவமழை முன்னெச்சரிக்கை: டெங்கு தடுப்பு நடவடிக்கைகள் தீவிரம்</h4>
+                    </div>
+                </div>
+                <div class="grid-card">
+                    <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="City">
+                    <div class="grid-card-content">
+                        <h4>மெட்ரோ ரயில் சேவை நீட்டிப்பு: புதிய வழித்தடங்களுக்கு ஒப்புதல்</h4>
+                    </div>
+                </div>
+                <div class="grid-card">
+                    <img src="https://images.unsplash.com/photo-1509395082400-244ebe2b0d02?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Education">
+                    <div class="grid-card-content">
+                        <h4>பொறியியல் கலந்தாய்வு தேதிகள் அறிவிப்பு: உயர்கல்வித்துறை தகவல்</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="./identity.min.js"></script>
     <script>
-        // ════════════════════════════════════════════════════════════════════════
-        // TUTORIAL DATA
-        // ════════════════════════════════════════════════════════════════════════
-        const TUTORIALS = {
-
-            // ── PYTHON ───────────────────────────────────────────────────────────
-            python: {
-                icon: '🐍',
-                badge: { text: 'பைதான் (Python)', color: '#3b82f6', bg: 'rgba(59,130,246,0.12)' },
-                title: 'தொடக்கநிலை முதல் மேம்பட்ட நிலை வரை பைதான் (Python)',
-                meta: ['⏱ ~2 மணிநேரம்', '🎯 தொடக்கநிலை → மேம்பட்ட நிலை', '💻 நேரடி உதாரணங்கள்'],
-                sections: [
-                    {
-                        id: 'intro', title: 'பைதான் (Python) அறிமுகம்',
-                        content: `
-                        <p>பைதான் ஒரு உயர்மட்ட, விளக்கமளிக்கும் மற்றும் பொதுப் பயன்பாட்டு நிரலாக்க மொழியாகும். இது <strong>கைடோ வான் ரோஸம்</strong> என்பவரால் உருவாக்கப்பட்டு 1991 இல் முதன்முதலில் வெளியிடப்பட்டது. பைதான் குறியீடு வாசிப்புத் திறன் மற்றும் எளிமைக்கு முக்கியத்துவம் அளிக்கிறது.</p>
-                        <div class="tip-box">💡 <strong>ஏன் பைதான்?</strong> தரவு அறிவியல் (Data Science), AI/ML, இணைய மேம்பாடு மற்றும் ஆட்டோமேஷன் ஆகியவற்றிற்கு பைதான் முதன்மையான மொழியாகும்.</div>
-                        <h3>பைதான் நிறுவுதல்</h3>
-                        <ol>
-                            <li><strong>python.org</strong> இலிருந்து பதிவிறக்கவும்</li>
-                            <li>நிறுவியைச் செயல்படுத்தவும் — <em>"Add Python to PATH"</em> என்பதைத் தேர்வு செய்யவும்</li>
-                            <li>சரிபார்க்கவும்: டெர்மினலைத் திறந்து <code>python --version</code> எனத் தட்டச்சு செய்யவும்</li>
-                        </ol>
-                    `
-                    },
-                    {
-                        id: 'basics', title: 'மாறிகள் (Variables) & தரவு வகைகள்',
-                        content: `
-                        <p>மாறிகள் தரவைச் சேமிக்கின்றன. பைதான் ஒரு டைனமிகல் டைப்டு (dynamically typed) மொழி — நீங்கள் தரவு வகைகளை வெளிப்படையாக அறிவிக்கத் தேவையில்லை.</p>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="cm"># Variables</span>
-<span class="var">name</span> = <span class="str">"Alice"</span>        <span class="cm"># str</span>
-<span class="var">age</span>  = <span class="num">25</span>            <span class="cm"># int</span>
-<span class="var">gpa</span>  = <span class="num">3.8</span>           <span class="cm"># float</span>
-<span class="var">is_student</span> = <span class="kw">True</span>   <span class="cm"># bool</span>
-
-<span class="cm"># அச்சிடுதல்</span>
-<span class="fn">print</span>(<span class="fn">f</span><span class="str">"Name: {name}, Age: {age}"</span>)
-
-<span class="cm"># வகைச் சரிபார்ப்பு</span>
-<span class="fn">print</span>(<span class="fn">type</span>(gpa))   <span class="cm"># &lt;class 'float'&gt;</span></pre>
-                        </div>
-                        <h3>தொகுப்புகள் (Collections)</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="cm"># List — வரிசைப்படுத்தப்பட்டது, மாற்றக்கூடியது</span>
-<span class="var">fruits</span> = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"cherry"</span>]
-<span class="var">fruits</span>.<span class="fn">append</span>(<span class="str">"mango"</span>)
-
-<span class="cm"># Tuple — வரிசைப்படுத்தப்பட்டது, மாற்ற முடியாதது</span>
-<span class="var">coords</span> = (<span class="num">10.5</span>, <span class="num">20.3</span>)
-
-<span class="cm"># Dictionary — கீ-வேல்யூ (key-value) ஜோடிகள்</span>
-<span class="var">student</span> = {<span class="str">"name"</span>: <span class="str">"Bob"</span>, <span class="str">"age"</span>: <span class="num">20</span>, <span class="str">"gpa"</span>: <span class="num">3.5</span>}
-<span class="fn">print</span>(student[<span class="str">"name"</span>])  <span class="cm"># Bob</span>
-
-<span class="cm"># Set — தனித்துவமான மதிப்புகள்</span>
-<span class="var">nums</span> = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">2</span>, <span class="num">1</span>}  <span class="cm"># {1, 2, 3}</span></pre>
-                        </div>
-                    `
-                    },
-                    {
-                        id: 'control', title: 'கட்டுப்பாட்டு ஓட்டம் (Control Flow)',
-                        content: `
-                        <p>பைதான் குறியீடு தொகுப்புகளை வரையறுக்க சுருள் அடைப்புக்குறிகளுக்கு (curly braces) பதிலாக உள்தள்ளலை (indentation - இடவெளி) பயன்படுத்துகிறது.</p>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="cm"># if / elif / else</span>
-<span class="var">score</span> = <span class="num">85</span>
-<span class="kw">if</span> score >= <span class="num">90</span>:
-    <span class="fn">print</span>(<span class="str">"Grade: A"</span>)
-<span class="kw">elif</span> score >= <span class="num">75</span>:
-    <span class="fn">print</span>(<span class="str">"Grade: B"</span>)
-<span class="kw">else</span>:
-    <span class="fn">print</span>(<span class="str">"Grade: C"</span>)
-
-<span class="cm"># for லூப்</span>
-<span class="kw">for</span> fruit <span class="kw">in</span> [<span class="str">"apple"</span>, <span class="str">"banana"</span>]:
-    <span class="fn">print</span>(fruit)
-
-<span class="cm"># while லூப்</span>
-<span class="var">i</span> = <span class="num">0</span>
-<span class="kw">while</span> i < <span class="num">5</span>:
-    <span class="fn">print</span>(i)
-    i += <span class="num">1</span>
-
-<span class="cm"># List comprehension (பைதான் முறை!)</span>
-<span class="var">squares</span> = [x**<span class="num">2</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>)]</pre>
-                        </div>
-                    `
-                    },
-                    {
-                        id: 'functions', title: 'சார்புகள் (Functions) & OOP',
-                        content: `
-                        <h3>சார்புகள் (Functions)</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="kw">def</span> <span class="fn">greet</span>(name, greeting=<span class="str">"Hello"</span>):
-    <span class="kw">return</span> <span class="fn">f</span><span class="str">"{greeting}, {name}!"</span>
-
-<span class="fn">print</span>(<span class="fn">greet</span>(<span class="str">"Alice"</span>))        <span class="cm"># Hello, Alice!</span>
-<span class="fn">print</span>(<span class="fn">greet</span>(<span class="str">"Bob"</span>, <span class="str">"Hi"</span>))   <span class="cm"># Hi, Bob!</span>
-
-<span class="cm"># லேம்ப்டா (Lambda - அநாமதேய) சார்பு</span>
-<span class="var">double</span> = <span class="kw">lambda</span> x: x * <span class="num">2</span>
-<span class="fn">print</span>(<span class="fn">double</span>(<span class="num">5</span>))  <span class="cm"># 10</span></pre>
-                        </div>
-                        <h3>வகுப்புகள் (Classes - OOP)</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="kw">class</span> <span class="cl">Animal</span>:
-    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="kw">self</span>, name, sound):
-        <span class="kw">self</span>.name  = name
-        <span class="kw">self</span>.sound = sound
-
-    <span class="kw">def</span> <span class="fn">speak</span>(<span class="kw">self</span>):
-        <span class="kw">return</span> <span class="fn">f</span><span class="str">"{self.name} says {self.sound}!"</span>
-
-<span class="kw">class</span> <span class="cl">Dog</span>(<span class="cl">Animal</span>):   <span class="cm"># வாரிசுரிமை (Inheritance)</span>
-    <span class="kw">def</span> <span class="fn">fetch</span>(<span class="kw">self</span>):
-        <span class="kw">return</span> <span class="str">"Fetching the ball!"</span>
-
-<span class="var">d</span> = <span class="cl">Dog</span>(<span class="str">"Rex"</span>, <span class="str">"Woof"</span>)
-<span class="fn">print</span>(d.<span class="fn">speak</span>())   <span class="cm"># Rex says Woof!</span>
-<span class="fn">print</span>(d.<span class="fn">fetch</span>())   <span class="cm"># Fetching the ball!</span></pre>
-                        </div>
-                    `
-                    },
-                    {
-                        id: 'libraries', title: 'பிரபலமான நூலகங்கள் (Libraries)',
-                        content: `
-                        <p>பைத்தானின் ஆற்றல் அதன் பரந்த நூலகங்களின் சுற்றுச்சூழல் அமைப்பிலிருந்து வருகிறது.</p>
-                        <ul>
-                            <li><strong>NumPy</strong> — வேகமான எண் கணிப்புகள் மற்றும் அணிகள் (Arrays)</li>
-                            <li><strong>Pandas</strong> — தரவு கையாளுதல் மற்றும் பகுப்பாய்வு</li>
-                            <li><strong>Matplotlib / Seaborn</strong> — தரவு காட்சிப்படுத்தல் (Data visualization)</li>
-                            <li><strong>Requests</strong> — எளிமையான HTTP கோரிக்கைகள்</li>
-                            <li><strong>Flask / FastAPI</strong> — இணைய கட்டமைப்புகள் (Web frameworks)</li>
-                            <li><strong>scikit-learn</strong> — இயந்திர கற்றல் (Machine learning)</li>
-                        </ul>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
-
-<span class="var">df</span> = pd.<span class="cl">DataFrame</span>({
-    <span class="str">"Name"</span>:  [<span class="str">"Alice"</span>, <span class="str">"Bob"</span>, <span class="str">"Carol"</span>],
-    <span class="str">"Score"</span>: [<span class="num">95</span>, <span class="num">87</span>, <span class="num">92</span>]
-})
-<span class="fn">print</span>(df.<span class="fn">describe</span>())
-<span class="fn">print</span>(df[df[<span class="str">"Score"</span>] > <span class="num">90</span>])</pre>
-                        </div>
-                    `
-                    }
-                ]
-            },
-
-            // ── JAVA ─────────────────────────────────────────────────────────────
-            java: {
-                icon: '☕',
-                badge: { text: 'ஜாவா (Java)', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
-                title: 'ஜாவா (Java) நிரலாக்கம் — அடிப்படை முதல் OOP வரை',
-                meta: ['⏱ ~2.5 மணிநேரம்', '🎯 தொடக்கநிலை → இடைநிலை', '💻 கன்சோல் நிரல்கள்'],
-                sections: [
-                    {
-                        id: 'intro', title: 'ஜாவா (Java) அறிமுகம்',
-                        content: `
-                        <p>ஜாவா என்பது வகுப்பு அடிப்படையிலான (class-based), ஆப்ஜெக்ட் ஓரியண்டட் புரோகிராமிங் மொழியாகும். இது முடிந்தவரை குறைவான செயல்படுத்தல் சார்புகளைக் கொண்டிருக்கும் வகையில் வடிவமைக்கப்பட்டுள்ளது. <strong>ஒருமுறை எழுதுங்கள், எங்கும் இயக்குங்கள் (WORA)</strong> — கம்பைல் செய்யப்பட்ட ஜாவா, JVM கொண்ட எந்த சாதனத்திலும் இயங்கும்.</p>
-                        <div class="info-box"><strong>JDK vs JRE vs JVM:</strong><br>
-                        • <strong>JVM</strong> — ஜாவா விர்ச்சுவல் மெஷின் (பைட்-கோடை செயல்படுத்துகிறது)<br>
-                        • <strong>JRE</strong> — JVM + இயக்க நேர நூலகங்கள் (runtime libraries)<br>
-                        • <strong>JDK</strong> — JRE + மேம்பாட்டு கருவிகள் (development tools - நீங்கள் நிறுவுவது)</div>
-                        <h3>முதல் நிரல்</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="kw">public class</span> <span class="cl">HelloWorld</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
-        System.out.<span class="fn">println</span>(<span class="str">"Hello, World!"</span>);
-    }
-}</pre>
-                        </div>
-                    `
-                    },
-                    {
-                        id: 'datatypes', title: 'தரவு வகைகள் & மாறிகள்',
-                        content: `
-                        <p>ஜாவா ஒரு <strong>ஸ்டாட்டிக்கலி டைப்டு (statically typed)</strong> மொழி — நீங்கள் மாறிகளின் வகைகளை அறிவிக்க வேண்டும்.</p>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="cm">// அடிப்படை வகைகள் (Primitive types)</span>
-<span class="kw">int</span>     age    = <span class="num">25</span>;
-<span class="kw">double</span>  gpa    = <span class="num">3.8</span>;
-<span class="kw">char</span>    grade  = <span class="str">'A'</span>;
-<span class="kw">boolean</span> active = <span class="kw">true</span>;
-<span class="kw">long</span>    bigNum = <span class="num">9876543210L</span>;
-
-<span class="cm">// ஸ்ட்ரிங் (பொருள், அடிப்படை அல்ல)</span>
-String name = <span class="str">"Alice"</span>;
-System.out.<span class="fn">println</span>(<span class="str">"Name: "</span> + name + <span class="str">", Age: "</span> + age);
-
-<span class="cm">// அணி (Array)</span>
-<span class="kw">int</span>[] scores = {<span class="num">85</span>, <span class="num">92</span>, <span class="num">78</span>, <span class="num">96</span>};
-System.out.<span class="fn">println</span>(scores[<span class="num">0</span>]);  <span class="cm">// 85</span></pre>
-                        </div>
-                    `
-                    },
-                    {
-                        id: 'control', title: 'கட்டுப்பாட்டு ஓட்டம் (Control Flow)',
-                        content: `
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="kw">int</span> score = <span class="num">88</span>;
-
-<span class="cm">// if-else</span>
-<span class="kw">if</span> (score >= <span class="num">90</span>) {
-    System.out.<span class="fn">println</span>(<span class="str">"A"</span>);
-} <span class="kw">else if</span> (score >= <span class="num">75</span>) {
-    System.out.<span class="fn">println</span>(<span class="str">"B"</span>);
-} <span class="kw">else</span> {
-    System.out.<span class="fn">println</span>(<span class="str">"C"</span>);
-}
-
-<span class="cm">// for லூப்</span>
-<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < <span class="num">5</span>; i++) {
-    System.out.<span class="fn">println</span>(i);
-}
-
-<span class="cm">// Enhanced for (for-each)</span>
-<span class="kw">int</span>[] arr = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>};
-<span class="kw">for</span> (<span class="kw">int</span> num : arr) {
-    System.out.<span class="fn">println</span>(num);
-}
-
-<span class="cm">// சுவிட்ச் (Java 14+ அம்பு தொடரியல்)</span>
-String day = <span class="str">"MON"</span>;
-String type = <span class="kw">switch</span>(day) {
-    <span class="kw">case</span> <span class="str">"SAT"</span>, <span class="str">"SUN"</span> -> <span class="str">"Weekend"</span>;
-    <span class="kw">default</span>             -> <span class="str">"Weekday"</span>;
-};</pre>
-                        </div>
-                    `
-                    },
-                    {
-                        id: 'oop', title: 'ஆப்ஜெக்ட் ஓரியண்டட் புரோகிராமிங் (OOP)',
-                        content: `
-                        <p>ஜாவா அடிப்படையில் OOP ஆகும். இதனுடைய 4 தூண்கள்: <strong>உறைபொதியாக்கம் (Encapsulation), வாரிசுரிமை (Inheritance), பல்லுருவாக்கம் (Polymorphism), சுருக்கம் (Abstraction)</strong>.</p>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="kw">public class</span> <span class="cl">Animal</span> {
-    <span class="kw">private</span> String name;
-
-    <span class="kw">public</span> <span class="cl">Animal</span>(String name) {
-        <span class="kw">this</span>.name = name;
-    }
-
-    <span class="kw">public</span> String <span class="fn">getName</span>() { <span class="kw">return</span> name; }
-
-    <span class="kw">public</span> String <span class="fn">speak</span>() {
-        <span class="kw">return</span> <span class="str">"..."</span>;
-    }
-}
-
-<span class="kw">public class</span> <span class="cl">Dog</span> <span class="kw">extends</span> <span class="cl">Animal</span> {
-    <span class="kw">public</span> <span class="cl">Dog</span>(String name) {
-        <span class="kw">super</span>(name);
-    }
-
-    <span class="cm">// பல்லுருவாக்கம் (Polymorphism) — மெத்தட் ஓவர்ரைடு (method override)</span>
-    @Override
-    <span class="kw">public</span> String <span class="fn">speak</span>() {
-        <span class="kw">return</span> <span class="fn">getName</span>() + <span class="str">" says Woof!"</span>;
-    }
-}
-
-<span class="cm">// Usage</span>
-<span class="cl">Animal</span> a = <span class="kw">new</span> <span class="cl">Dog</span>(<span class="str">"Rex"</span>);
-System.out.<span class="fn">println</span>(a.<span class="fn">speak</span>());  <span class="cm">// Rex says Woof!</span></pre>
-                        </div>
-                    `
-                    },
-                    {
-                        id: 'collections', title: 'தொகுப்பு கட்டமைப்பு (Collections Framework)',
-                        content: `
-                        <p>ஜாவா <code>java.util</code> தொகுப்பில் சக்திவாய்ந்த தொகுப்பு வகுப்புகளை வழங்குகிறது.</p>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="kw">import</span> java.util.*;
-
-<span class="cm">// ArrayList — டைனமிக் அணி</span>
-List&lt;String&gt; names = <span class="kw">new</span> ArrayList&lt;&gt;();
-names.<span class="fn">add</span>(<span class="str">"Alice"</span>);
-names.<span class="fn">add</span>(<span class="str">"Bob"</span>);
-names.<span class="fn">forEach</span>(System.out::println);
-
-<span class="cm">// HashMap — கீ-வேல்யூ (key-value) ஸ்டோர்</span>
-Map&lt;String, Integer&gt; scores = <span class="kw">new</span> HashMap&lt;&gt;();
-scores.<span class="fn">put</span>(<span class="str">"Alice"</span>, <span class="num">95</span>);
-scores.<span class="fn">put</span>(<span class="str">"Bob"</span>,   <span class="num">87</span>);
-System.out.<span class="fn">println</span>(scores.<span class="fn">get</span>(<span class="str">"Alice"</span>));  <span class="cm">// 95</span>
-
-<span class="cm">// Stream API (Java 8+)</span>
-names.stream()
-     .<span class="fn">filter</span>(n -> n.<span class="fn">startsWith</span>(<span class="str">"A"</span>))
-     .<span class="fn">forEach</span>(System.out::println);</pre>
-                        </div>
-                    `
-                    }
-                ]
-            },
-
-            // ── DATA SCIENCE ─────────────────────────────────────────────────────
-            datascience: {
-                icon: '📊',
-                badge: { text: 'தரவு அறிவியல் (Data Science)', color: '#22c55e', bg: 'rgba(34,197,94,0.12)' },
-                title: 'பைதான் (Python) மூலம் தரவு அறிவியல் (Data Science)',
-                meta: ['⏱ ~3 மணிநேரம்', '🎯 இடைநிலை', '📊 உண்மையான தரவுத்தொகுப்புகள்'],
-                sections: [
-                    {
-                        id: 'intro', title: 'தரவு அறிவியல் (Data Science) என்றால் என்ன?',
-                        content: `
-                        <p>தரவு அறிவியல் என்பது கட்டமைக்கப்பட்ட மற்றும் கட்டமைக்கப்படாத தரவுகளிலிருந்து அறிவு மற்றும் நுண்ணறிவுகளைப் பிரித்தெடுக்கும் செயல்முறையாகும். இது புள்ளிவிவரங்கள், நிரலாக்கம் மற்றும் டொமைன் நிபுணத்துவத்தை ஒருங்கிணைக்கிறது.</p>
-                        <div class="info-box"><strong>தரவு அறிவியல் குழாய்வழி (The Data Science Pipeline):</strong><br>
-                        1. தரவை <strong>சேகரித்தல் (Collect)</strong> → 2. அதை <strong>சுத்தம் செய்தல் (Clean)</strong> → 3. <strong>ஆராய்தல் (Explore - EDA)</strong> → 4. <strong>மாதிரி அமைத்தல் (Model)</strong> → 5. <strong>மதிப்பிடுதல் (Evaluate)</strong> → 6. <strong>பயன்படுத்துதல் (Deploy)</strong></div>
-                        <h3>அமைப்பு (Setup)</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre>pip install numpy pandas matplotlib seaborn scikit-learn jupyter</pre>
-                        </div>
-                    `
-                    },
-                    {
-                        id: 'pandas', title: 'Pandas மூலம் தரவு கையாளுதல்',
-                        content: `
-                        <p>தரவு கையாளுதலுக்கான முதன்மையான நூலகம் Pandas ஆகும். இது <code>DataFrame</code> ஐ வழங்குகிறது — இது லேபிளிடப்பட்ட அச்சுகளைக் கொண்ட ஒரு 2D அட்டவணை ஆகும்.</p>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
-
-<span class="cm"># தரவை ஏற்றுதல் (Load data)</span>
-<span class="var">df</span> = pd.<span class="fn">read_csv</span>(<span class="str">"data.csv"</span>)
-
-<span class="cm"># ஆராய்தல் (Explore)</span>
-<span class="fn">print</span>(df.<span class="fn">head</span>())           <span class="cm"># முதல் 5 வரிசைகள்</span>
-<span class="fn">print</span>(df.<span class="fn">info</span>())           <span class="cm"># நெடுவரிசைகள், வகைகள்</span>
-<span class="fn">print</span>(df.<span class="fn">describe</span>())      <span class="cm"># புள்ளிவிவர சுருக்கம்</span>
-<span class="fn">print</span>(df.<span class="fn">isnull</span>().<span class="fn">sum</span>())  <span class="cm"># விடுபட்ட மதிப்புகள்</span>
-
-<span class="cm"># சுத்தம் செய்தல் (Clean)</span>
-<span class="var">df</span> = df.<span class="fn">dropna</span>()           <span class="cm"># காலியானவற்றை நீக்குதல்</span>
-<span class="var">df</span>[<span class="str">"Age"</span>] = df[<span class="str">"Age"</span>].<span class="fn">fillna</span>(df[<span class="str">"Age"</span>].<span class="fn">mean</span>())
-
-<span class="cm"># வடிகட்டுதல் & வரிசைப்படுத்துதல்</span>
-<span class="var">adults</span> = df[df[<span class="str">"Age"</span>] >= <span class="num">18</span>]
-<span class="var">top5</span>   = df.<span class="fn">sort_values</span>(<span class="str">"Score"</span>, ascending=<span class="kw">False</span>).<span class="fn">head</span>(<span class="num">5</span>)
-
-<span class="cm"># குழுப்படுத்துதல் (Group by)</span>
-<span class="var">avg_by_dept</span> = df.<span class="fn">groupby</span>(<span class="str">"Department"</span>)[<span class="str">"Salary"</span>].<span class="fn">mean</span>()</pre>
-                        </div>
-                    `
-                    },
-                    {
-                        id: 'viz', title: 'தரவு காட்சிப்படுத்தல் (Data Visualization)',
-                        content: `
-                        <p>காட்சிப்படுத்தல்கள் தரவில் உள்ள வடிவங்கள், முரண்பாடுகள் மற்றும் உறவுகளைக் கண்டறிய உதவுகின்றன.</p>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
-<span class="kw">import</span> seaborn <span class="kw">as</span> sns
-
-<span class="cm"># கோட்டு வரைபடம் (Line chart)</span>
-plt.<span class="fn">plot</span>(df[<span class="str">"Month"</span>], df[<span class="str">"Revenue"</span>], marker=<span class="str">'o'</span>)
-plt.<span class="fn">title</span>(<span class="str">"Monthly Revenue"</span>)
-plt.<span class="fn">show</span>()
-
-<span class="cm"># ஹிஸ்டோகிராம் (Histogram)</span>
-plt.<span class="fn">hist</span>(df[<span class="str">"Age"</span>], bins=<span class="num">20</span>, color=<span class="str">"steelblue"</span>)
-
-<span class="cm"># தொடர்பு வெப்ப வரைபடம் (Correlation heatmap)</span>
-sns.<span class="fn">heatmap</span>(df.<span class="fn">corr</span>(), annot=<span class="kw">True</span>, cmap=<span class="str">"coolwarm"</span>)
-
-<span class="cm"># பெட்டி வரைபடம் (Box plot)</span>
-sns.<span class="fn">boxplot</span>(x=<span class="str">"Category"</span>, y=<span class="str">"Value"</span>, data=df)
-
-<span class="cm"># சிதறல் வரைபடம் (Scatter plot)</span>
-sns.<span class="fn">scatterplot</span>(x=<span class="str">"Height"</span>, y=<span class="str">"Weight"</span>, hue=<span class="str">"Gender"</span>, data=df)</pre>
-                        </div>
-                    `
-                    },
-                    {
-                        id: 'ml', title: 'இயந்திர கற்றல் (Machine Learning) அடிப்படைகள்',
-                        content: `
-                        <p>இயந்திர கற்றல் என்பது கணினிகள் வெளிப்படையாக நிரல் செய்யப்படாமல் தரவிலிருந்து கற்றுக்கொள்ள அனுமதிக்கிறது.</p>
-                        <div class="tip-box">📌 <strong>வகைகள்:</strong> மேற்பார்வையிடப்பட்ட (Supervised - லேபிளிடப்பட்ட தரவு) | மேற்பார்வையிடப்படாத (Unsupervised) | வலுவூட்டல் கற்றல் (Reinforcement)</div>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="kw">from</span> sklearn.model_selection <span class="kw">import</span> train_test_split
-<span class="kw">from</span> sklearn.linear_model  <span class="kw">import</span> LinearRegression
-<span class="kw">from</span> sklearn.metrics        <span class="kw">import</span> mean_squared_error, r2_score
-
-<span class="cm"># அம்சங்கள் & இலக்கு</span>
-<span class="var">X</span> = df[[<span class="str">"Hours_Studied"</span>, <span class="str">"Attendance"</span>]]
-<span class="var">y</span> = df[<span class="str">"Exam_Score"</span>]
-
-<span class="cm"># தரவைப் பிரித்தல்</span>
-<span class="var">X_train</span>, <span class="var">X_test</span>, <span class="var">y_train</span>, <span class="var">y_test</span> = train_test_split(
-    X, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>
-)
-
-<span class="cm"># மாதிரியைப் பயிற்றுவித்தல்</span>
-<span class="var">model</span> = <span class="cl">LinearRegression</span>()
-model.<span class="fn">fit</span>(X_train, y_train)
-
-<span class="cm"># மதிப்பிடுதல்</span>
-<span class="var">y_pred</span> = model.<span class="fn">predict</span>(X_test)
-<span class="fn">print</span>(<span class="str">"R² Score:"</span>, <span class="fn">r2_score</span>(y_test, y_pred))
-<span class="fn">print</span>(<span class="str">"RMSE:"</span>    , mean_squared_error(y_test, y_pred, squared=<span class="kw">False</span>))</pre>
-                        </div>
-                    `
-                    },
-                    {
-                        id: 'classification', title: 'வகைப்படுத்தல் (Classification) உதாரணம்',
-                        content: `
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="kw">from</span> sklearn.ensemble        <span class="kw">import</span> RandomForestClassifier
-<span class="kw">from</span> sklearn.metrics         <span class="kw">import</span> classification_report
-<span class="kw">from</span> sklearn.preprocessing  <span class="kw">import</span> LabelEncoder
-
-<span class="cm"># வகைப்படுத்தப்பட்ட நெடுவரிசைகளை குறியீடாக்குதல் (Encode)</span>
-<span class="var">le</span> = <span class="cl">LabelEncoder</span>()
-<span class="var">df</span>[<span class="str">"Gender"</span>] = le.<span class="fn">fit_transform</span>(df[<span class="str">"Gender"</span>])
-
-<span class="cm"># உருவாக்குதல் & பயிற்றுவித்தல்</span>
-<span class="var">clf</span> = <span class="cl">RandomForestClassifier</span>(n_estimators=<span class="num">100</span>, random_state=<span class="num">42</span>)
-clf.<span class="fn">fit</span>(X_train, y_train)
-
-<span class="cm"># அறிக்கை</span>
-<span class="fn">print</span>(<span class="fn">classification_report</span>(y_test, clf.<span class="fn">predict</span>(X_test)))</pre>
-                        </div>
-                    `
-                    }
-                ]
-            },
-
-            // ── POWER BI ─────────────────────────────────────────────────────────
-            powerbi: {
-                icon: '📈',
-                badge: { text: 'Power BI', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
-                title: 'Power BI — டேஷ்போர்டுகள் மற்றும் தரவு காட்சிப்படுத்தல்',
-                meta: ['⏱ ~2 மணிநேரம்', '🎯 தொடக்கநிலை → இடைநிலை', '📈 பிசினஸ் இன்டெலிஜென்ஸ் (BI)'],
-                sections: [
-                    {
-                        id: 'intro', title: 'Power BI அறிமுகம்',
-                        content: `
-                        <p>மைக்ரோசாப்ட் Power BI என்பது தரவைக் காட்சிப்படுத்தவும் நுண்ணறிவுகளைப் பகிரவும் அனுமதிக்கும் ஒரு வணிக பகுப்பாய்வுக் கருவியாகும். இது நூற்றுக்கணக்கான தரவு மூலங்களுடன் இணைக்கப்பட்டு ஊடாடும் (interactive) டேஷ்போர்டுகளை உருவாக்குகிறது.</p>
-                        <div class="tip-box">💡 <strong>Power BI Desktop</strong> ஐ <strong>powerbi.microsoft.com</strong> இலிருந்து இலவசமாகப் பதிவிறக்கம் செய்யலாம்.</div>
-                        <ul>
-                            <li><strong>Power BI Desktop</strong> — அறிக்கைகளை உள்ளூர் கணினியில் உருவாக்குதல்</li>
-                            <li><strong>Power BI Service</strong> — கிளவுட் அடிப்படையிலான பகிர்வு</li>
-                            <li><strong>Power BI Mobile</strong> — மொபைல் சாதனங்களில் பார்க்க</li>
-                        </ul>
-                    `
-                    },
-                    {
-                        id: 'connect', title: 'தரவு மூலங்களுடன் இணைத்தல்',
-                        content: `
-                        <p>Excel, SQL Server, SharePoint, APIகள் மற்றும் கிளவுட் தரவுத்தளங்கள் உட்பட 100-க்கும் மேற்பட்ட தரவு மூலங்களுடன் Power BI இணைக்க முடியும்.</p>
-                        <h3>தரவை இறக்குமதி செய்வதற்கான படிகள்</h3>
-                        <ol>
-                            <li><strong>Home → Get Data</strong> என்பதைக் கிளிக் செய்யவும்</li>
-                            <li>மூலத்தைத் தேர்ந்தெடுக்கவும் (Excel, CSV, SQL Server போன்றவை)</li>
-                            <li>இறக்குமதி செய்ய வேண்டிய அட்டவணைகள்/தாள்களைத் தேர்ந்தெடுக்கவும்</li>
-                            <li><strong>Load</strong> அல்லது <strong>Transform Data</strong> (முதலில் சுத்தம் செய்ய) என்பதைக் கிளிக் செய்யவும்</li>
-                        </ol>
-                        <div class="info-box">நீங்கள் "Transform Data" என்பதைக் கிளிக் செய்யும் போது <strong>Power Query Editor</strong> திறக்கும் — தரவை ஏற்றுவதற்கு முன் சுத்தம் செய்ய, மறுவடிவமைக்க மற்றும் வடிகட்ட இதுவே இடம்.</div>
-                        <h3>பொதுவான மாற்றங்கள்</h3>
-                        <ul>
-                            <li>நகல்கள் மற்றும் காலியான வரிசைகளை நீக்குதல்</li>
-                            <li>நெடுவரிசை தரவு வகைகளை மாற்றுதல்</li>
-                            <li>நெடுவரிசைகளைப் பிரித்தல் / இணைத்தல்</li>
-                            <li>நிபந்தனைகளின்படி வரிசைகளை வடிகட்டுதல்</li>
-                            <li>பல அட்டவணைகளைச் சேர்த்தல் அல்லது இணைத்தல்</li>
-                        </ul>
-                    `
-                    },
-                    {
-                        id: 'dax', title: 'DAX — தரவு பகுப்பாய்வு வெளிப்பாடுகள்',
-                        content: `
-                        <p>DAX என்பது Power BI இல் தனிப்பயன் கணக்கீடுகளை உருவாக்கப் பயன்படுத்தப்படும் சூத்திர மொழியாகும்.</p>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">dax</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                            <pre><span class="cm">-- Calculated Column</span>
-Profit = Sales[Revenue] - Sales[Cost]
-
-<span class="cm">-- Measure</span>
-Total Sales = SUM(Sales[Revenue])
-
-<span class="cm">-- Average</span>
-Avg Order Value = AVERAGE(Sales[OrderAmount])
-
-<span class="cm">-- Conditional (IF)</span>
-Sales Category =
-    IF(Sales[Revenue] > 10000, "High", "Low")
-
-<span class="cm">-- CALCULATE (context modifier)</span>
-Q1 Sales =
-    CALCULATE(
-        SUM(Sales[Revenue]),
-        Sales[Quarter] = "Q1"
-    )
-
-<span class="cm">-- Year-to-Date</span>
-YTD Revenue =
-    TOTALYTD(SUM(Sales[Revenue]), Dates[Date])</pre>
-                        </div>
-                    `
-                    },
-                    {
-                        id: 'visuals', title: 'காட்சிகள் மற்றும் அறிக்கைகளை உருவாக்குதல்',
-                        content: `
-                        <p>கேன்வாஸில் புலங்களை இழுத்து விடுவதன் மூலம் காட்சிகளை உருவாக்கலாம். சிறந்த விளக்கப்பட வகையை Power BI தானாகவே பரிந்துரைக்கும்.</p>
-                        <h3>பொதுவான காட்சிப்படுத்தல்கள்</h3>
-                        <ul>
-                            <li>📊 <strong>பார் / நெடுவரிசை விளக்கப்படம்</strong> — வகைகளை ஒப்பிடுதல்</li>
-                            <li>📈 <strong>கோட்டு வரைபடம்</strong> — காலப்போக்கில் போக்குகள்</li>
-                            <li>🥧 <strong>பை / டோனட் விளக்கப்படம்</strong> — முழுவதின் பகுதி</li>
-                            <li>🗺 <strong>வரைபடம்</strong> — புவியியல் தரவு</li>
-                            <li>📋 <strong>அட்டவணை / மேட்ரிக்ஸ்</strong> — மொத்தங்களுடன் கூடிய அட்டவணை தரவு</li>
-                            <li>🃏 <strong>அட்டை (Card)</strong> — ஒற்றை KPI எண்</li>
-                            <li>📉 <strong>சிதறல் வரைபடம்</strong> — தொடர்புகள்</li>
-                        </ul>
-                        <h3>Slicers (வடிகட்டிகள்)</h3>
-                        <p>Slicers முழு அறிக்கை பக்கத்தையும் ஊடாடும் வகையில் வடிகட்ட பயனர்களை அனுமதிக்கின்றன. <strong>Slicer</strong> காட்சியைச் சேர்த்து, அதைத் தேதி அல்லது வகை நெடுவரிசையுடன் இணைக்கவும்.</p>
-                        <div class="tip-box">🎯 <strong>சிறந்த நடைமுறை:</strong> TOTALYTD, SAMEPERIODLASTYEAR போன்ற நேர நுண்ணறிவு செயல்பாடுகள் சரியாக வேலை செய்ய ஒரு <strong>தேதி அட்டவணையை (Date Table)</strong> பயன்படுத்தவும்.</div>
-                    `
-                    },
-                    {
-                        id: 'relationships', title: 'தரவு மாதிரி (Data Model) & உறவுகள்',
-                        content: `
-                        <p>ஒரு சரியான தரவு மாதிரி <strong>ஸ்டார் ஸ்கீமா (Star Schema)</strong> ஐப் பயன்படுத்துகிறது — ஒன்றுக்கும் மேற்பட்ட பரிமாண அட்டவணைகளுடன் இணைக்கப்பட்ட ஒரு மைய உண்மை அட்டவணை.</p>
-                        <div class="info-box">
-                            <strong>Star Schema Example:</strong><br>
-                            📦 <strong>Fact_Sales</strong> (OrderID, ProductID, CustomerID, DateID, Amount)<br>
-                            🧩 <strong>Dim_Product</strong> (ProductID, Name, Category)<br>
-                            🧩 <strong>Dim_Customer</strong> (CustomerID, Name, Region)<br>
-                            🧩 <strong>Dim_Date</strong> (DateID, Year, Month, Quarter)
-                        </div>
-                        <h3>உறவுகளை உருவாக்குதல்</h3>
-                        <ol>
-                            <li><strong>Model View</strong>-க்குச் செல்லவும்</li>
-                            <li>ஒரு அட்டவணையிலிருந்து மற்றொரு அட்டவணைக்கு ஒரு 'கீ' (key) ஐ இழுக்கவும்</li>
-                            <li>கார்டினாலிட்டியை அமைக்கவும்: <strong>Many-to-One (பரிந்துரைக்கப்படுகிறது)</strong></li>
-                            <li>கிராஸ்-ஃபில்டர் திசை: <strong>Single</strong> (பொதுவாக)</li>
-                        </ol>
-                    `
-                    }
-                ]
-            }
-        };
-
-        // ════════════════════════════════════════════════════════════════════════
-        // RENDER ENGINE
-        // ════════════════════════════════════════════════════════════════════════
-        function render() {
-            const params = new URLSearchParams(window.location.search);
-            const topic = (params.get('topic') || 'python').toLowerCase();
-            const data = TUTORIALS[topic] || TUTORIALS['python'];
-
-            document.title = data.title + ' — பயிற்சி';
-
-            // Sidebar
-            document.getElementById('sidebarLabel').textContent = data.badge.text;
-
-            const tocList = document.getElementById('tocList');
-            data.sections.forEach((s, i) => {
-                const li = document.createElement('li');
-                li.innerHTML = `<a href="#${s.id}">${i + 1}. ${s.title}</a>`;
-                tocList.appendChild(li);
-            });
-
-            // Main content
-            const metaHtml = data.meta.map(m => `<span>${m}</span>`).join('');
-
-            let sectionsHtml = data.sections.map((s, i) => `
-            <div class="section" id="${s.id}">
-                <h2>${i + 1}. ${s.title}</h2>
-                ${s.content}
-            </div>
-            ${i < data.sections.length - 1 ? '<hr class="divider">' : ''}
-        `).join('');
-
-            document.getElementById('tutorialContent').innerHTML = `
-            <h1 class="tutorial-title">${data.title}</h1>
-            <div class="tutorial-meta">${metaHtml}</div>
-            <hr class="divider">
-            ${sectionsHtml}
-        `;
-
-            // Highlight active TOC on scroll
-            setupScrollSpy(data.sections);
-        }
-
-        function setupScrollSpy(sections) {
-            const links = document.querySelectorAll('.toc-list a');
-
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(s => {
-                    const el = document.getElementById(s.id);
-                    if (el && window.scrollY >= el.offsetTop - 100) {
-                        current = s.id;
-                    }
-                });
-                links.forEach(a => {
-                    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-                });
-            });
-        }
-
-        function copyCode(btn) {
-            const pre = btn.closest('.code-block').querySelector('pre');
-            navigator.clipboard.writeText(pre.innerText).then(() => {
-                btn.textContent = '✓ Copied!';
-                setTimeout(() => btn.textContent = 'Copy', 2000);
-            });
-        }
-
-        // Init
-        render();
-
-        // Identity SDK
+        // Identity SDK tracker initialization
         try {
             if (typeof Identity !== 'undefined') {
                 Identity.init('testsite', 'ArxY8ydnJZGo_wXq7Fzryya1x0aHE90N7ReIeReYeB0', {
@@ -963,7 +376,7 @@ YTD Revenue =
                 // Track page view
                 Identity.trackPageView({ page_url: window.location.href });
             }
-        } catch (e) { }
+        } catch (e) { console.error(e); }
     </script>
 </body>
 </html>
